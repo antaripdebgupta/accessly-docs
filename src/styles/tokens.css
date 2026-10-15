@@ -1,0 +1,31 @@
+/* Accessly UI Docs — Design Tokens
+   Cool zinc base + focus-ring blue accent from accessibility inspection tools */
+:root {
+  --canvas: #f7f7f8;
+  --surface: #ffffff;
+  --surface-raised: #ededf0;
+  --border: #d4d4d8;
+  --border-strong: #7a7a82;
+  --border-subtle: #e4e4e7;
+  --accent: #2563eb;
+  --accent-subtle: #eff3fe;
+  --accent-muted: #93bbfd;
+  --text: #18181b;
+  --text-muted: #48484d;
+  --text-faint: #64646c;
+}
+
+.dark {
+  --canvas: #111113;
+  --surface: #19191b;
+  --surface-raised: #222225;
+  --border: #2e2e33;
+  --border-strong: #797981;
+  --border-subtle: #27272a;
+  --accent: #60a5fa;
+  --accent-subtle: #172137;
+  --accent-muted: #2563eb;
+  --text: #e4e4e7;
+  --text-muted: #babac0;
+  --text-faint: #9a9aa2;
+}

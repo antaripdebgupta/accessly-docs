@@ -1,0 +1,44 @@
+@import "tailwindcss";
+@import "@accessly-ui/tailwind-preset/theme.css";
+@import "../styles/tokens.css";
+@source "../../node_modules/@accessly-ui/react/dist/**/*.js";
+
+@theme inline {
+  --font-sans:
+    var(--font-geist), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-display: var(--font-source-serif), "Source Serif 4", Georgia, serif;
+  --font-mono: var(--font-geist-mono), "Geist Mono", "SF Mono", ui-monospace, monospace;
+}
+
+:root {
+  background-color: var(--canvas);
+  color: var(--text);
+}
+
+::selection {
+  background-color: #bfdbfe;
+}
+
+.dark ::selection {
+  background-color: #1e3a8a;
+}
+
+@keyframes heroDialogFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+.hero-dialog-anim {
+  animation: heroDialogFloat 6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-dialog-anim {
+    animation: none !important;
+  }
+}
