@@ -70,8 +70,7 @@ import {
   TreeItem,
 } from "@accessly-ui/react";
 import { componentRegistry } from "@/data/components/registry";
-
-/* ---------- Small stateful previews ---------- */
+import { MoveRight } from "lucide-react";
 
 function DialogPreview() {
   const [open, setOpen] = useState(false);
@@ -370,9 +369,12 @@ export function ComponentsGrid() {
     return acc;
   }, {});
 
+  const categoryCount = Object.keys(grouped).length;
+  const description = `Explore all ${all.length} accessible React components organized into ${categoryCount} functional categories.`;
+
   return (
     <DocArticle size="wide">
-      <PageHeading title="All Components" />
+      <PageHeading title="All Components" description={description} />
 
       <div className="mt-8 space-y-12">
         {Object.entries(grouped).map(([category, items]) => (
@@ -400,21 +402,10 @@ export function ComponentsGrid() {
                       className="group inline-flex w-full items-center justify-between font-mono text-sm text-[var(--text-faint)] transition-colors hover:text-[var(--text)] focus-visible:underline focus-visible:outline-none"
                     >
                       <span>{meta.name}</span>
-                      <svg
-                        width="14"
-                        height="14"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
+                      <MoveRight
                         aria-hidden="true"
-                        className="text-[var(--text-faint)] transition-transform group-hover:translate-x-0.5 group-hover:text-[var(--text)]"
-                      >
-                        <line x1="5" y1="12" x2="19" y2="12" />
-                        <polyline points="12 5 19 12 12 19" />
-                      </svg>
+                        className="h-3.5 w-3.5 text-[var(--text-faint)] transition-transform group-hover:translate-x-0.5 group-hover:text-[var(--text)]"
+                      />
                     </Link>
                   </div>
                 </div>

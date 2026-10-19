@@ -15,6 +15,7 @@ import {
   Pagination,
 } from "@accessly-ui/react";
 import { Container } from "@/components/site/Container";
+import { COMPONENT_COUNT } from "@/data/components/registry";
 
 interface ShowcaseCard {
   name: string;
@@ -104,7 +105,7 @@ export function ComponentShowcase() {
             id="showcase-heading"
             className="text-3xl font-semibold tracking-tight text-[var(--text)]"
           >
-            22 components. One standard.
+            {COMPONENT_COUNT} components. One standard.
           </h2>
           <Link
             href="/components"

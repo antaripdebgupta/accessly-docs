@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { componentRegistry } from "@/data/components/registry";
 import { componentPropsMap } from "@/data/components/props";
 import { ComponentDocView } from "@/components/docs/ComponentDocView";
+import { routeMetadata } from "@/lib/seo";
 
 interface ComponentPageProps {
   params: Promise<{
@@ -25,13 +26,14 @@ export async function generateMetadata({
   if (!meta) {
     return {
       title: "Component Not Found",
+      robots: { index: false, follow: false },
     };
   }
 
-  return {
-    title: `${meta.name} — Component Documentation`,
+  return routeMetadata(`/components/${component}`, {
+    title: meta.name,
     description: meta.description,
-  };
+  });
 }
 
 export default async function ComponentPage({ params }: ComponentPageProps) {

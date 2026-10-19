@@ -1,6 +1,15 @@
+import type { Metadata } from "next";
 import { Header } from "@/components/site/Header";
 import { Container } from "@/components/site/Container";
 import { LinkButton } from "@/components/site/LinkButton";
+
+export const metadata: Metadata = {
+  title: "Page Not Found",
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 
 export default function NotFound() {
   return (

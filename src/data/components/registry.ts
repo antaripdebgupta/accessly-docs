@@ -9,6 +9,9 @@ export interface ComponentMeta {
     | "Data Display"
     | "Layout & Misc";
   description: string;
+  summary?: string;
+  whenToUse?: string[];
+  commonIssues?: { title: string; description: string }[];
   wcagCriteria: string[];
   keyboardInteractions: { key: string; description: string }[];
   relatedComponents: string[];
@@ -21,6 +24,13 @@ export const componentRegistry: Record<string, ComponentMeta> = {
     category: "Forms & Inputs",
     description:
       "Interactive button with accessible keyboard activation, pending loading states, and full ARIA semantics.",
+    summary:
+      "Button is an interactive action element supporting primary, secondary, and danger variants across three sizes. Use it to trigger immediate on-page actions, form submissions, or modal dialogs. It manages keyboard activation via Space and Enter, displays loading spinners with aria-busy, and preserves accessible names without disruptive label swapping.",
+    whenToUse: [
+      "Triggering immediate actions such as form submission, modal opening, or state changes.",
+      "Displaying asynchronous pending states where keyboard focus and accessible names must remain stable.",
+      "Providing high-contrast, keyboard-focusable targets across primary, secondary, and danger styles.",
+    ],
     wcagCriteria: ["2.1.1 Keyboard", "4.1.2 Name, Role, Value"],
     keyboardInteractions: [
       { key: "Enter / Space", description: "Activates the button." },
@@ -34,6 +44,13 @@ export const componentRegistry: Record<string, ComponentMeta> = {
     category: "Forms & Inputs",
     description:
       "Two-state or indeterminate checkbox input with accessible group labeling and native form integration.",
+    summary:
+      "Checkbox provides a standard binary or indeterminate selection control for forms and settings. Use it when users can select one or more independent options from a list. It natively integrates with form submit lifecycles, supports tri-state selection, and exposes proper aria-checked semantics.",
+    whenToUse: [
+      "Selecting multiple independent choices from a list of options.",
+      "Agreeing to standalone terms, policies, or confirmation toggles.",
+      "Representing parent-child bulk selections with an indeterminate state.",
+    ],
     wcagCriteria: ["1.3.1 Info and Relationships", "4.1.2 Name, Role, Value"],
     keyboardInteractions: [
       { key: "Space", description: "Toggles the checked state." },
@@ -46,7 +63,14 @@ export const componentRegistry: Record<string, ComponentMeta> = {
     slug: "combobox",
     category: "Forms & Inputs",
     description:
-      "Autocomplete combobox with virtualized listbox, live search filtering, and roving tabindex navigation.",
+      "Autocomplete combobox with popup listbox, live search filtering, and roving tabindex navigation.",
+    summary:
+      "Combobox combines a single-line text input with a floating suggestions popup listbox. Use it when users need to search, filter, and pick from a large dataset without loading all options into view. It manages roving focus, keyboard navigation with Arrow keys, and dynamic aria-expanded attributes.",
+    whenToUse: [
+      "Selecting a single value from a long list of choices with live typeahead search.",
+      "Filtering predefined options while maintaining keyboard focus within the input.",
+      "Replacing native select inputs when searchable options and custom row rendering are required.",
+    ],
     wcagCriteria: [
       "1.3.1 Info and Relationships",
       "2.1.1 Keyboard",
@@ -65,6 +89,13 @@ export const componentRegistry: Record<string, ComponentMeta> = {
     category: "Forms & Inputs",
     description:
       "Accessible single-line text input with label association, helper text description, and validation error announcements.",
+    summary:
+      "Input provides an accessible single-line text field with built-in label pairing, helper description, and error announcements. Use it for capturing short user text, emails, passwords, or file selections. It automatically coordinates aria-describedby and aria-invalid attributes for screen readers.",
+    whenToUse: [
+      "Collecting short alphanumeric strings like names, email addresses, or search terms.",
+      "Forms requiring inline error identification and screen reader error announcements.",
+      "File uploads requiring standard or drag-and-drop file selection interfaces.",
+    ],
     wcagCriteria: [
       "1.3.1 Info and Relationships",
       "3.3.1 Error Identification",
@@ -76,9 +107,16 @@ export const componentRegistry: Record<string, ComponentMeta> = {
   pagination: {
     name: "Pagination",
     slug: "pagination",
-    category: "Forms & Inputs",
+    category: "Navigation",
     description:
       "Accessible multi-page navigation with aria-current='page', range indicators, and screen reader announcements.",
+    summary:
+      "Pagination provides multi-page navigational controls with previous, next, and numbered page links. Use it to divide large tabular datasets or long lists into discrete pages. It indicates the current active page with aria-current='page' and preserves sequential tab navigation.",
+    whenToUse: [
+      "Splitting large data collections across distinct URL-backed or state-backed views.",
+      "Giving users explicit control over page navigation, jump-to-page, and items per page.",
+      "Paired with data tables or directory listings to keep initial payload sizes small.",
+    ],
     wcagCriteria: ["2.1.1 Keyboard", "2.4.4 Link Purpose", "4.1.2 Name, Role, Value"],
     keyboardInteractions: [
       { key: "Enter / Space", description: "Navigates to the selected page." },
@@ -92,6 +130,13 @@ export const componentRegistry: Record<string, ComponentMeta> = {
     category: "Forms & Inputs",
     description:
       "Accessible single-selection group using roving tabindex and arrow key navigation adhering to WAI-ARIA APG.",
+    summary:
+      "RadioGroup manages mutually exclusive single-selection from a set of related options. Use it when users must choose exactly one option from two to seven visible choices. It implements WAI-ARIA roving tabindex so Arrow keys traverse items while Tab exits the entire group.",
+    whenToUse: [
+      "Selecting exactly one option from a small set of mutually exclusive choices.",
+      "Settings or surveys where all available choices should remain visible at once.",
+      "Form fields requiring explicit keyboard selection via Arrow keys rather than Tab.",
+    ],
     wcagCriteria: [
       "1.3.1 Info and Relationships",
       "2.1.1 Keyboard",
@@ -116,6 +161,13 @@ export const componentRegistry: Record<string, ComponentMeta> = {
     category: "Forms & Inputs",
     description:
       "Binary toggle switch component implementing role='switch' with aria-checked states.",
+    summary:
+      "Switch provides a binary toggle control representing an instant on or off state. Use it for application settings and preferences that take effect immediately without requiring form submission. It uses role='switch' with aria-checked to communicate toggled states.",
+    whenToUse: [
+      "Activating or deactivating instant features, notifications, or preferences.",
+      "Binary settings where changes take effect immediately without clicking Save.",
+      "Modern alternative to a single checkbox when labeled with clear affirmative action.",
+    ],
     wcagCriteria: ["2.1.1 Keyboard", "4.1.2 Name, Role, Value"],
     keyboardInteractions: [
       { key: "Space / Enter", description: "Toggles switch state between on and off." },
@@ -129,6 +181,13 @@ export const componentRegistry: Record<string, ComponentMeta> = {
     category: "Forms & Inputs",
     description:
       "Multi-line text input with automated height adjustment, accessible character counting, and validation feedback.",
+    summary:
+      "Textarea provides a multi-line plain text editing field with optional automated height adjustment and character counting. Use it for capturing long-form text such as comments, feedback, or descriptions. It coordinates aria-describedby for helper text and live character limit tracking.",
+    whenToUse: [
+      "Collecting paragraphs of user input like messages, bios, or reviews.",
+      "Inputs benefiting from automatic expansion as the user types multiple lines.",
+      "Forms enforcing maximum character counts with accessible remaining-character counters.",
+    ],
     wcagCriteria: ["1.3.1 Info and Relationships", "3.3.2 Labels or Instructions"],
     keyboardInteractions: [{ key: "Tab", description: "Focuses textarea field." }],
     relatedComponents: ["input"],
@@ -138,7 +197,14 @@ export const componentRegistry: Record<string, ComponentMeta> = {
     slug: "command-palette",
     category: "Overlays & Dialogs",
     description:
-      "Global modal search and command prompt with fuzzy scoring, keyboard shortcuts, and live announcements.",
+      "Global modal search and command prompt with keyword filtering, keyboard shortcuts, and live announcements.",
+    summary:
+      "CommandPalette provides a global modal search prompt triggered by keyboard shortcuts like ⌘K or Ctrl+K. Use it to enable rapid keyboard navigation, action triggering, and documentation search across an application. It manages modal focus trapping, list filtering, and keyboard traversal.",
+    whenToUse: [
+      "Global keyboard-driven navigation across complex web applications.",
+      "Quick action triggering, command execution, and deep page searching.",
+      "Power-user workflows requiring immediate shortcut access from any view.",
+    ],
     wcagCriteria: ["2.1.1 Keyboard", "2.4.3 Focus Order", "4.1.2 Name, Role, Value"],
     keyboardInteractions: [
       { key: "⌘K / Ctrl+K", description: "Opens command palette from anywhere." },
@@ -154,6 +220,20 @@ export const componentRegistry: Record<string, ComponentMeta> = {
     category: "Overlays & Dialogs",
     description:
       "Modal dialog overlay with automatic focus trapping, scroll locking, and accessible restoration upon dismissal.",
+    summary:
+      "Dialog is a modal window rendered in an overlay that sits above the primary page content. Use it for critical confirmations, sub-tasks, or forms that require focused user interaction before proceeding. It automatically traps keyboard focus, locks background scrolling, and restores focus upon dismissal.",
+    whenToUse: [
+      "Interrupting the user flow to request critical confirmation or destructive action.",
+      "Presenting focused secondary tasks without navigating away from the current page.",
+      "Modal forms that require user completion or explicit cancellation before continuing.",
+    ],
+    commonIssues: [
+      {
+        title: "Overlay visibility",
+        description:
+          "DialogOverlay requires explicit visibility management via open/onOpenChange or DialogTrigger.",
+      },
+    ],
     wcagCriteria: [
       "2.1.2 No Keyboard Trap",
       "2.4.3 Focus Order",
@@ -174,6 +254,13 @@ export const componentRegistry: Record<string, ComponentMeta> = {
     category: "Overlays & Dialogs",
     description:
       "Action menu popover with submenu nesting, keyboard typeahead navigation, and anchor positioning.",
+    summary:
+      "DropdownMenu displays a contextual menu of actions or selections triggered by a button. Use it to consolidate secondary actions, table row tools, or profile options into an anchor-positioned popup. It supports nested submenus, checkbox items, and Arrow-key typeahead traversal.",
+    whenToUse: [
+      "Grouping multiple secondary actions behind a single trigger button.",
+      "Table row contextual action menus (edit, duplicate, delete).",
+      "Navigation bar profile menus with links, toggles, and logout actions.",
+    ],
     wcagCriteria: ["2.1.1 Keyboard", "2.4.3 Focus Order", "4.1.2 Name, Role, Value"],
     keyboardInteractions: [
       { key: "ArrowDown / ArrowUp", description: "Traverses items in menu." },
@@ -188,6 +275,20 @@ export const componentRegistry: Record<string, ComponentMeta> = {
     category: "Overlays & Dialogs",
     description:
       "Non-modal informational popup triggered by hover and keyboard focus without obscuring interactive controls.",
+    summary:
+      "Tooltip provides a non-modal floating label that describes an interactive element upon pointer hover or keyboard focus. Use it to explain icon buttons or cryptic controls without cluttering the interface. It dismisses on Escape and never obscures interactive trigger elements.",
+    whenToUse: [
+      "Providing accessible text descriptions for icon-only buttons.",
+      "Displaying supplementary contextual tips or keyboard shortcuts on hover/focus.",
+      "Brief clarifications that do not contain interactive links or buttons.",
+    ],
+    commonIssues: [
+      {
+        title: "Disabled trigger buttons",
+        description:
+          "Native disabled buttons suppress pointer and keyboard events; wrap disabled controls in a focusable span with tabIndex={0} to preserve tooltip triggers.",
+      },
+    ],
     wcagCriteria: ["1.4.13 Content on Hover or Focus", "2.1.1 Keyboard"],
     keyboardInteractions: [
       { key: "Focus", description: "Reveals tooltip content." },
@@ -201,6 +302,13 @@ export const componentRegistry: Record<string, ComponentMeta> = {
     category: "Navigation",
     description:
       "Navigational trail landmark indicating current hierarchical position with aria-current='page'.",
+    summary:
+      "Breadcrumb renders a hierarchical trail of links reflecting the user's location within the site structure. Use it on nested pages to help users orient themselves and navigate up to ancestor levels. It marks the current page with aria-current='page' and supports automatic item collapsing.",
+    whenToUse: [
+      "Multi-level page hierarchies such as documentation guides or e-commerce categories.",
+      "Helping users understand where the current document sits within the whole website.",
+      "Providing quick one-click navigation back to parent and grandparent sections.",
+    ],
     wcagCriteria: [
       "1.3.1 Info and Relationships",
       "2.4.4 Link Purpose",
@@ -217,6 +325,13 @@ export const componentRegistry: Record<string, ComponentMeta> = {
     category: "Navigation",
     description:
       "WAI-ARIA compliant tabbed interface supporting horizontal/vertical orientation and roving focus.",
+    summary:
+      "Tabs organizes related content into multiple panels, showing one panel at a time while keeping the rest hidden. Use it to reduce page height and group alternate views of the same context. It supports horizontal and vertical layouts with automatic or manual roving arrow-key activation.",
+    whenToUse: [
+      "Splitting related views (e.g. Preview and Code, Account and Billing) within the same page.",
+      "Reducing vertical scrolling by organizing dense sections into selectable panels.",
+      "Switching between parallel datasets without triggering full page reloads.",
+    ],
     wcagCriteria: ["2.1.1 Keyboard", "2.4.3 Focus Order", "4.1.2 Name, Role, Value"],
     keyboardInteractions: [
       {
@@ -233,6 +348,20 @@ export const componentRegistry: Record<string, ComponentMeta> = {
     category: "Navigation",
     description:
       "Hierarchical tree structure with expandable/collapsible nodes, arrow-key navigation, and selection management.",
+    summary:
+      "TreeView presents hierarchical data in an expandable and collapsible tree structure. Use it for nested file directories, category trees, or organization charts. It supports single or multi-selection, keyboard navigation with Arrow keys (expanding right, collapsing left), and roving tabindex.",
+    whenToUse: [
+      "Displaying deep multi-level file systems or nested folder hierarchies.",
+      "Category taxonomy navigation where nodes can be expanded and selected.",
+      "Complex hierarchical outlines requiring standard keyboard exploration.",
+    ],
+    commonIssues: [
+      {
+        title: "Root labeling",
+        description:
+          "TreeView requires an aria-label to identify the hierarchical structure.",
+      },
+    ],
     wcagCriteria: ["2.1.1 Keyboard", "4.1.2 Name, Role, Value"],
     keyboardInteractions: [
       {
@@ -250,6 +379,13 @@ export const componentRegistry: Record<string, ComponentMeta> = {
     category: "Feedback",
     description:
       "Status and feedback callout conveying contextual priority (info, success, warning, danger) with role='alert'.",
+    summary:
+      "Alert communicates critical system status messages, notices, and errors with contextual color coding. Use it to present persistent or closable notifications within the content flow. It uses role='alert' or role='status' with appropriate live region politeness to alert screen readers.",
+    whenToUse: [
+      "Notifying users about system errors, form submission failures, or warnings.",
+      "Highlighting important contextual advice or upcoming breaking changes.",
+      "Displaying banner notifications at the top of pages or forms.",
+    ],
     wcagCriteria: ["4.1.3 Status Messages", "1.4.1 Use of Color"],
     keyboardInteractions: [
       { key: "Tab", description: "Focuses close button or action links within alert." },
@@ -262,6 +398,13 @@ export const componentRegistry: Record<string, ComponentMeta> = {
     category: "Feedback",
     description:
       "Placeholder loading state with aria-busy announcements and reduced-motion compliant animations.",
+    summary:
+      "Skeleton renders placeholder preview shapes that mimic the layout of content while it is loading. Use it to reduce perceived latency and prevent disruptive layout shifts during asynchronous data fetches. It includes aria-busy indicators and automatically respects prefers-reduced-motion.",
+    whenToUse: [
+      "Replacing blank screens with structural layouts while data is fetching.",
+      "Preventing Cumulative Layout Shift (CLS) as text, avatars, or tables load.",
+      "Indicating background loading states in card grids, profiles, or data tables.",
+    ],
     wcagCriteria: ["2.2.2 Pause, Stop, Hide", "2.3.3 Animation from Interactions"],
     keyboardInteractions: [],
     relatedComponents: ["alert"],
@@ -272,9 +415,15 @@ export const componentRegistry: Record<string, ComponentMeta> = {
     category: "Feedback",
     description:
       "Ephemeral notification toasts rendering into an accessible polite/assertive aria-live region queue.",
+    summary:
+      "Toast renders ephemeral feedback notifications into an accessible live-region queue. Use it to confirm the outcome of background actions like saving, deleting, or copying to clipboard. It announces updates via polite or assertive live regions and supports automatic dismissal.",
+    whenToUse: [
+      "Confirming asynchronous user actions (e.g. 'Saved to clipboard', 'Item deleted').",
+      "Delivering non-disruptive feedback that does not require immediate user action.",
+      "Announcing background status changes that dismiss automatically after a delay.",
+    ],
     wcagCriteria: ["4.1.3 Status Messages", "2.2.1 Timing Adjustable"],
     keyboardInteractions: [
-      { key: "Alt+T", description: "Focuses newest toast message if configured." },
       { key: "Escape", description: "Dismisses active focused toast." },
     ],
     relatedComponents: ["alert"],
@@ -285,6 +434,20 @@ export const componentRegistry: Record<string, ComponentMeta> = {
     category: "Data Display",
     description:
       "Visual identity representation with fallback initials, accessible alt description, and presence indicators.",
+    summary:
+      "Avatar represents a user or organization with an image, initials fallback, or placeholder icon. Use it in navigation bars, comment threads, and user lists. It provides accessible alt descriptions, customizable status badges for online presence, and grouped avatar overlapping.",
+    whenToUse: [
+      "Displaying user profile pictures in navigation headers and comments.",
+      "Rendering user initials or fallback icons when images fail to load or are absent.",
+      "Showing collaborator lists with AvatarGroup and overflow indicators.",
+    ],
+    commonIssues: [
+      {
+        title: "Group labeling",
+        description:
+          "AvatarGroup requires an explicit aria-label (e.g. aria-label='Active collaborators') to identify the relationship to screen readers.",
+      },
+    ],
     wcagCriteria: ["1.1.1 Non-text Content", "1.4.11 Non-text Contrast"],
     keyboardInteractions: [],
     relatedComponents: ["data-table"],
@@ -294,7 +457,21 @@ export const componentRegistry: Record<string, ComponentMeta> = {
     slug: "data-table",
     category: "Data Display",
     description:
-      "Accessible tabular data display featuring sortable headers, column pinning, row selection, and pagination integration.",
+      "Accessible tabular data display featuring sortable headers, row selection, and pagination integration.",
+    summary:
+      "DataTable renders tabular data with sortable column headers, custom cell formatters, row selection, and integrated pagination. Use it for complex data exploration and structured reporting. It enforces proper semantic table markup, caption labeling, and keyboard-operable header sorting.",
+    whenToUse: [
+      "Displaying dense structured datasets requiring column sorting and cell formatting.",
+      "Admin panels, analytics dashboards, and record lists with row selection.",
+      "Tables requiring screen reader accessibility with captions and header associations.",
+    ],
+    commonIssues: [
+      {
+        title: "Table caption",
+        description:
+          "DataTable requires an accessible caption (or aria-label) describing the dataset content.",
+      },
+    ],
     wcagCriteria: [
       "1.3.1 Info and Relationships",
       "2.1.1 Keyboard",
@@ -315,6 +492,13 @@ export const componentRegistry: Record<string, ComponentMeta> = {
     category: "Layout & Misc",
     description:
       "Vertically stacked interactive disclosures with single or multi-expand modes and keyboard control.",
+    summary:
+      "Accordion displays stacked interactive disclosure headers that expand and collapse associated content panels. Use it to organize dense FAQs, product specifications, or multi-step settings. It supports single or multi-expand modes and keyboard control with Space, Enter, and Arrow keys.",
+    whenToUse: [
+      "Frequently Asked Questions (FAQ) sections where users scan questions first.",
+      "Collapsing secondary configuration options to keep screens uncluttered.",
+      "Progressive disclosure of lengthy technical details and specifications.",
+    ],
     wcagCriteria: ["2.1.1 Keyboard", "4.1.2 Name, Role, Value"],
     keyboardInteractions: [
       {
@@ -334,6 +518,20 @@ export const componentRegistry: Record<string, ComponentMeta> = {
     category: "Layout & Misc",
     description:
       "Rotational slider component with accessible slide landmarks, play/pause controls, and keyboard navigation.",
+    summary:
+      "Carousel is a rotational slider for cycling through sequential cards, images, or testimonials. Use it when limited horizontal space must showcase multiple rich items. It provides accessible slide landmarks, play/pause controls, keyboard navigation, and respects motion preferences.",
+    whenToUse: [
+      "Showcasing featured cards, product galleries, or testimonials in a compact space.",
+      "Step-by-step interactive showcases with prev/next buttons and indicator dots.",
+      "Rotational media where users control navigation via keyboard Arrow keys or swipes.",
+    ],
+    commonIssues: [
+      {
+        title: "Landmark labeling",
+        description:
+          "Carousel requires an aria-label on the root container so screen reader users can distinguish the rotational region.",
+      },
+    ],
     wcagCriteria: [
       "2.1.1 Keyboard",
       "2.2.2 Pause, Stop, Hide",
@@ -349,3 +547,5 @@ export const componentRegistry: Record<string, ComponentMeta> = {
     relatedComponents: ["tabs"],
   },
 };
+
+export const COMPONENT_COUNT = Object.keys(componentRegistry).length;

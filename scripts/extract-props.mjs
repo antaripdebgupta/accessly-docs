@@ -67,6 +67,209 @@ const componentMap = {
   "tree-view": ["TreeView/TreeView.d.ts", "TreeView/TreeItem.d.ts"],
 };
 
+// Internal types that are not public component props
+const internalInterfaces = new Set([
+  "ComboboxContextValue",
+  "CommandPaletteContextValue",
+  "DialogContextValue",
+  "DropdownMenuContextValue",
+  "ToastContextValue",
+  "TooltipContextValue",
+  "ToastProps",
+]);
+
+// Verified default values from component implementations and CVA configurations
+const knownDefaults = {
+  ButtonProps: {
+    variant: '"primary"',
+    size: '"md"',
+    loading: "false",
+  },
+  AccordionProps: {
+    type: '"single"',
+    collapsible: "true",
+    variant: '"default"',
+  },
+  AccordionItemProps: {
+    disabled: "false",
+  },
+  AlertProps: {
+    variant: '"info"',
+    banner: "false",
+    urgency: '"assertive"',
+    closable: "false",
+  },
+  AvatarGroupProps: {
+    size: '"md"',
+  },
+  BreadcrumbProps: {
+    itemsBeforeCollapse: "1",
+    itemsAfterCollapse: "1",
+    dir: '"ltr"',
+    "aria-label": '"Breadcrumb"',
+  },
+  BreadcrumbItemProps: {
+    isCurrent: "false",
+  },
+  CarouselProps: {
+    orientation: '"horizontal"',
+    loop: "true",
+    size: '"full"',
+    spacing: '"md"',
+    slidesPerView: "1",
+  },
+  CarouselSlideProps: {
+    slideIndex: "0",
+  },
+  ComboboxInputProps: {
+    showClearButton: "true",
+  },
+  ComboboxItemProps: {
+    disabled: "false",
+  },
+  CommandPaletteProps: {
+    hotkey: '"mod+k"',
+  },
+  CommandItemProps: {
+    disabled: "false",
+  },
+  DialogContentProps: {
+    size: '"md"',
+    showCloseButton: "true",
+  },
+  DropdownMenuContentProps: {
+    align: '"start"',
+    sideOffset: "4",
+  },
+  DropdownMenuItemProps: {
+    disabled: "false",
+    destructive: "false",
+  },
+  FileInputProps: {
+    multiple: "false",
+    disabled: "false",
+    required: "false",
+    dir: '"ltr"',
+  },
+  InputProps: {
+    type: '"text"',
+    layout: '"stacked"',
+    dir: '"ltr"',
+  },
+  RadioGroupProps: {
+    orientation: '"vertical"',
+    disabled: "false",
+    responsive: "false",
+    dir: '"ltr"',
+  },
+  SwitchProps: {
+    size: '"md"',
+  },
+  TabsProps: {
+    orientation: '"horizontal"',
+    activationMode: '"automatic"',
+    loop: "true",
+  },
+  TabsContentProps: {
+    forceMount: "false",
+    lazyMount: "true",
+  },
+  TabsListProps: {
+    scrollable: "false",
+  },
+  TabsTriggerProps: {
+    disabled: "false",
+  },
+  TextareaProps: {
+    autoResize: "false",
+    maxRows: "6",
+    dir: '"ltr"',
+  },
+  ToastProviderProps: {
+    placement: '"bottom-right"',
+  },
+  TooltipProps: {
+    placement: '"top"',
+    showArrow: "true",
+    delayDuration: "300",
+  },
+  TreeViewProps: {
+    selectionMode: '"single"',
+  },
+  TreeItemProps: {
+    disabled: "false",
+  },
+  SkeletonProps: {
+    label: '"Loading"',
+  },
+};
+
+// Verified descriptions from component JSDocs and source
+const knownDescriptions = {
+  ButtonProps: {
+    loadingText:
+      "Visible while loading; accessible name stays stable via aria-busy, not label swap.",
+    loading: "Shows an accessible loading spinner and sets aria-busy.",
+    variant: "Visual style variant (primary, secondary, danger).",
+    size: "Button sizing (sm, md, lg).",
+  },
+  DialogContentProps: {
+    size: "Max width — matches library standard content sizes (sm, md, lg).",
+    showCloseButton: "Shows the top-right close icon button.",
+  },
+  TabsContentProps: {
+    forceMount:
+      "Keep the panel mounted in the DOM (with visibility toggled) even before first selection.",
+    lazyMount: "Defer mounting panel contents until first selected.",
+  },
+  TooltipProps: {
+    delayDuration: "Delay (in milliseconds) before showing the tooltip on hover.",
+    showArrow: "Renders a pointer arrow linking the tooltip to its trigger.",
+    placement: "Tooltip placement relative to trigger (top, right, bottom, left).",
+  },
+  CarouselProps: {
+    autoplayInterval:
+      "Milliseconds between auto-advances. Omit to disable autoplay. Ignored under prefers-reduced-motion.",
+    size: 'How wide each slide renders relative to the viewport ("full" for one slide at a time).',
+    spacing: 'Gap between slides ("sm", "md", "lg").',
+    slidesPerView: "Number of slides visible simultaneously.",
+    loop: "Whether carousel loops seamlessly from last to first slide.",
+    orientation: "Scroll orientation (horizontal or vertical).",
+  },
+  AvatarGroupProps: {
+    "aria-label":
+      'Accessible label for the group as a whole, e.g. "Project collaborators".',
+    overflowIcon:
+      'Icon rendered inside the "+N" overflow avatar instead of the count text.',
+    onOverflowClick:
+      'Called when the overflow "+N" avatar is activated — wire this to open a dropdown/list.',
+    size: "Avatar sizing for all members of the group.",
+  },
+  DataTableProps: {
+    caption: "Accessible table caption describing the tabular dataset to screen readers.",
+    columns: "Column definitions including header, cell render, and sort accessors.",
+    data: "Array of row data records.",
+    getRowId: "Unique identifier extractor for each row item.",
+  },
+  ComboboxInputProps: {
+    showClearButton: "Renders a button to clear the input text when populated.",
+  },
+  CommandPaletteProps: {
+    hotkey: "Global keyboard shortcut that toggles the palette.",
+  },
+};
+
+function getJsDoc(node, sf, code) {
+  const fullText = code.slice(node.getFullStart(), node.getStart());
+  const match = fullText.match(/\/\*\*([\s\S]*?)\*\//);
+  if (!match) return "";
+  return match[1]
+    .split("\n")
+    .map((line) => line.replace(/^\s*\*\s?/, "").trim())
+    .filter(Boolean)
+    .join(" ");
+}
+
 function extractPropsFromFile(relPath) {
   const fullPath = path.join(distDir, relPath);
   if (!fs.existsSync(fullPath)) return [];
@@ -84,20 +287,45 @@ function extractPropsFromFile(relPath) {
   function visit(node) {
     if (ts.isInterfaceDeclaration(node)) {
       const name = node.name.text;
+
+      // Filter out internal context values and non-public interfaces
+      if (internalInterfaces.has(name) || name.endsWith("ContextValue")) {
+        return;
+      }
+
       const props = [];
+      const sectionDefaults = knownDefaults[name] || {};
+      const sectionDescriptions = knownDescriptions[name] || {};
 
       for (const member of node.members) {
         if (ts.isPropertySignature(member)) {
-          const propName = member.name.getText(sf);
+          const propName = member.name.getText(sf).replace(/['"]/g, "");
+          const rawPropName = member.name.getText(sf);
           const typeStr = member.type ? member.type.getText(sf) : "any";
           const isRequired = !member.questionToken;
 
-          props.push({
-            name: propName,
+          const astDoc = getJsDoc(member, sf, code);
+          const description =
+            astDoc ||
+            sectionDescriptions[propName] ||
+            sectionDescriptions[rawPropName] ||
+            "";
+
+          const defaultValue =
+            sectionDefaults[propName] || sectionDefaults[rawPropName] || undefined;
+
+          const propEntry = {
+            name: rawPropName,
             type: typeStr,
             required: isRequired,
-            description: "",
-          });
+            description,
+          };
+
+          if (defaultValue !== undefined) {
+            propEntry.defaultValue = defaultValue;
+          }
+
+          props.push(propEntry);
         }
       }
 

@@ -1,6 +1,7 @@
 export interface NavItem {
   title: string;
   href: string;
+  description?: string;
   badge?: string;
   isNew?: boolean;
 }
@@ -15,12 +16,42 @@ export const gettingStartedNav: NavSection[] = [
   {
     title: "Overview",
     items: [
-      { title: "Introduction", href: "/docs/introduction" },
-      { title: "Installation", href: "/docs/installation" },
-      { title: "Architecture", href: "/docs/architecture" },
-      { title: "Packages", href: "/docs/packages" },
-      { title: "Theming & Styling", href: "/docs/theming" },
-      { title: "Accessibility Principles", href: "/docs/accessibility" },
+      {
+        title: "Introduction",
+        href: "/docs/introduction",
+        description:
+          "Accessly UI is a collection of 22 WCAG 2.2 AA accessible React components with keyboard navigation, focus management, and ARIA wiring built in. Use them headless or pre-styled with Tailwind CSS.",
+      },
+      {
+        title: "Installation",
+        href: "/docs/installation",
+        description:
+          "How to install and configure Accessly UI in your React and Next.js projects.",
+      },
+      {
+        title: "Architecture",
+        href: "/docs/architecture",
+        description:
+          "How Accessly UI's four packages — react, primitives, tailwind-preset, and utils — layer together, and how theming flows from tokens to components.",
+      },
+      {
+        title: "Packages",
+        href: "/docs/packages",
+        description:
+          "What's inside @accessly-ui/react, @accessly-ui/primitives, @accessly-ui/tailwind-preset, and @accessly-ui/utils — and when to reach for each one.",
+      },
+      {
+        title: "Theming & Styling",
+        href: "/docs/theming",
+        description:
+          "Configure design tokens, dark mode synchronization, and Tailwind preset customization.",
+      },
+      {
+        title: "Accessibility Principles",
+        href: "/docs/accessibility",
+        description:
+          "Core WCAG 2.2 AA standards, keyboard navigation patterns, and focus architecture in Accessly UI.",
+      },
     ],
   },
 ];
@@ -66,5 +97,8 @@ export const mobileNavMenuItems: NavItem[] = [
 
 export const footerNavLinks: NavItem[] = [
   { title: "Docs", href: "/docs/introduction" },
+  { title: "Installation", href: "/docs/installation" },
+  { title: "Packages", href: "/docs/packages" },
+  { title: "Accessibility", href: "/docs/accessibility" },
   { title: "Components", href: "/components" },
 ];

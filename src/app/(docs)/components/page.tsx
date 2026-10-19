@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
 import { ComponentsGrid } from "@/components/docs/ComponentsGrid";
+import { routeMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "All Components",
-  description: "Browse every component in Accessly UI.",
-};
+export const metadata: Metadata = routeMetadata("/components");
 
 export default function ComponentsIndexPage() {
   return <ComponentsGrid />;

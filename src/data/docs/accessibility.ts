@@ -17,6 +17,6 @@ export const pillars = [
   {
     title: "4. Contrast & Motion Preferences (WCAG 1.4.3 & 2.2.2)",
     description:
-      "All text maintains at least 4.5:1 contrast against warm canvas backgrounds. Interactive control borders exceed 3:1. Animations automatically disable under prefers-reduced-motion.",
+      "All text maintains at least 4.5:1 contrast against cool zinc canvas backgrounds. Interactive control borders exceed 3:1. Animations automatically disable under prefers-reduced-motion.",
   },
 ];

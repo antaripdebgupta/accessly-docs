@@ -11,6 +11,7 @@ import { DocArticle } from "@/components/docs/DocArticle";
 import { PageHeading } from "@/components/docs/PageHeading";
 import { SectionHeading } from "@/components/docs/SectionHeading";
 import { DocPager } from "@/components/docs/DocPager";
+import { ArrowUpRight } from "lucide-react";
 
 import { packages, type PackageInfo } from "@/data/docs/packages";
 
@@ -72,7 +73,8 @@ export function PackagesContent() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 rounded-lg border border-[var(--border)] bg-[var(--surface)] px-3 py-1.5 text-sm font-medium text-[var(--text-muted)] transition-colors hover:border-[var(--border-strong)] hover:text-[var(--text)] focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:outline-hidden"
               >
-                View on npm<span aria-hidden="true">↗</span>
+                View on npm{" "}
+                <ArrowUpRight aria-hidden="true" className="h-3.5 w-3.5 shrink-0" />
                 <span className="sr-only"> (opens in new tab)</span>
               </a>
             </div>

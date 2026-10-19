@@ -16,10 +16,9 @@ const installYarn = `yarn add @accessly-ui/react @accessly-ui/tailwind-preset`;
 const globalsCss = `@import "tailwindcss";
 @import "@accessly-ui/tailwind-preset/theme.css";
 
-@source "../node_modules/@accessly-ui/react/dist";`;
+@source "../node_modules/@accessly-ui/react/dist/**/*.js";`;
 
-const rootLayoutCode = `import { Fraunces } from "next/font/google";
-import { getThemeScript, ThemeProvider } from "@accessly-ui/react";
+const rootLayoutCode = `import { getThemeScript, ThemeProvider } from "@accessly-ui/react";
 import "./globals.css";
 
 export default function RootLayout({

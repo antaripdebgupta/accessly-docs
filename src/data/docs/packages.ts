@@ -1,4 +1,5 @@
 import { INSTALL_COMMAND } from "../site";
+import { COMPONENT_COUNT } from "../components/registry";
 
 export interface PackageInfo {
   name: string;
@@ -18,7 +19,7 @@ export const packages: PackageInfo[] = [
     description:
       "The package most applications install. Every component ships styled with the Tailwind preset's tokens, fully keyboard-accessible, and ready to use without any configuration.",
     contains: [
-      "22 components — Button through TreeView",
+      `${COMPONENT_COUNT} components — Button through TreeView`,
       "Sensible defaults for every ARIA attribute and keyboard pattern",
       "Dark mode support out of the box via ThemeProvider",
     ],

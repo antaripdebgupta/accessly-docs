@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from "vitest";
 import { render } from "@testing-library/react";
 import { ThemeProvider } from "@/components/site/ThemeProvider";
-import IntroductionPage from "@/app/(docs)/docs/introduction/page";
+import { IntroductionContent } from "@/components/docs/IntroductionContent";
 import { InstallationContent } from "@/components/docs/InstallationContent";
 import { ThemingContent } from "@/components/docs/ThemingContent";
 import { AccessibilityContent } from "@/components/docs/AccessibilityContent";
@@ -37,7 +37,7 @@ describe("Text Baselines", () => {
   it("snapshots IntroductionPage text", async () => {
     const { container } = render(
       <ThemeProvider>
-        <IntroductionPage />
+        <IntroductionContent />
       </ThemeProvider>
     );
     await expect(normalize(container.textContent)).toMatchFileSnapshot(

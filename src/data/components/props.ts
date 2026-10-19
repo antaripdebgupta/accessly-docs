@@ -21,6 +21,7 @@ export const componentPropsMap: Record<string, ComponentPropsSection[]> = {
           type: "AccordionType",
           required: false,
           description: "",
+          defaultValue: '"single"',
         },
         {
           name: "value",
@@ -45,6 +46,7 @@ export const componentPropsMap: Record<string, ComponentPropsSection[]> = {
           type: "boolean",
           required: false,
           description: "",
+          defaultValue: "true",
         },
         {
           name: "dir",
@@ -74,6 +76,7 @@ export const componentPropsMap: Record<string, ComponentPropsSection[]> = {
           type: "boolean",
           required: false,
           description: "",
+          defaultValue: "false",
         },
       ],
     },
@@ -93,12 +96,14 @@ export const componentPropsMap: Record<string, ComponentPropsSection[]> = {
           type: "'polite' | 'assertive' | 'off'",
           required: false,
           description: "",
+          defaultValue: '"assertive"',
         },
         {
           name: "closable",
           type: "boolean",
           required: false,
           description: "",
+          defaultValue: "false",
         },
         {
           name: "onClose",
@@ -169,13 +174,15 @@ export const componentPropsMap: Record<string, ComponentPropsSection[]> = {
           name: "size",
           type: "AvatarProps['size']",
           required: false,
-          description: "",
+          description: "Avatar sizing for all members of the group.",
+          defaultValue: '"md"',
         },
         {
           name: "'aria-label'",
           type: "string",
           required: true,
-          description: "",
+          description:
+            'Accessible label for the group as a whole, e.g. "Project collaborators".',
         },
         {
           name: "children",
@@ -187,13 +194,15 @@ export const componentPropsMap: Record<string, ComponentPropsSection[]> = {
           name: "overflowIcon",
           type: "ReactNode",
           required: false,
-          description: "",
+          description:
+            'Icon rendered inside the "+N" overflow avatar instead of the count text.',
         },
         {
           name: "onOverflowClick",
           type: "() => void",
           required: false,
-          description: "",
+          description:
+            'Called when the overflow "+N" avatar is activated — wire this to open a dropdown/list.',
         },
       ],
     },
@@ -225,12 +234,14 @@ export const componentPropsMap: Record<string, ComponentPropsSection[]> = {
           type: "number",
           required: false,
           description: "",
+          defaultValue: "1",
         },
         {
           name: "itemsAfterCollapse",
           type: "number",
           required: false,
           description: "",
+          defaultValue: "1",
         },
         {
           name: "as",
@@ -243,6 +254,7 @@ export const componentPropsMap: Record<string, ComponentPropsSection[]> = {
           type: "'ltr' | 'rtl'",
           required: false,
           description: "",
+          defaultValue: '"ltr"',
         },
         {
           name: "children",
@@ -284,6 +296,7 @@ export const componentPropsMap: Record<string, ComponentPropsSection[]> = {
           type: "boolean",
           required: false,
           description: "",
+          defaultValue: "false",
         },
         {
           name: "as",
@@ -337,13 +350,15 @@ export const componentPropsMap: Record<string, ComponentPropsSection[]> = {
           name: "loading",
           type: "boolean",
           required: false,
-          description: "",
+          description: "Shows an accessible loading spinner and sets aria-busy.",
+          defaultValue: "false",
         },
         {
           name: "loadingText",
           type: "string",
           required: false,
-          description: "",
+          description:
+            "Visible while loading; accessible name stays stable via aria-busy, not label swap.",
         },
       ],
     },
@@ -380,19 +395,22 @@ export const componentPropsMap: Record<string, ComponentPropsSection[]> = {
           name: "orientation",
           type: "CarouselOrientation",
           required: false,
-          description: "",
+          description: "Scroll orientation (horizontal or vertical).",
+          defaultValue: '"horizontal"',
         },
         {
           name: "loop",
           type: "boolean",
           required: false,
-          description: "",
+          description: "Whether carousel loops seamlessly from last to first slide.",
+          defaultValue: "true",
         },
         {
           name: "autoplayInterval",
           type: "number",
           required: false,
-          description: "",
+          description:
+            "ms between auto-advances. Omit to disable autoplay. Ignored under prefers-reduced-motion.",
         },
         {
           name: "dir",
@@ -404,19 +422,23 @@ export const componentPropsMap: Record<string, ComponentPropsSection[]> = {
           name: "size",
           type: "CarouselSize",
           required: false,
-          description: "",
+          description:
+            'How wide each slide renders relative to the viewport. Default "full" (one slide at a time).',
+          defaultValue: '"full"',
         },
         {
           name: "spacing",
           type: "CarouselSpacing",
           required: false,
-          description: "",
+          description: 'Gap between slides. Default "md".',
+          defaultValue: '"md"',
         },
         {
           name: "slidesPerView",
           type: "number",
           required: false,
-          description: "",
+          description: "How many slides are visible at once. Default 1.",
+          defaultValue: "1",
         },
         {
           name: "id",
@@ -488,23 +510,6 @@ export const componentPropsMap: Record<string, ComponentPropsSection[]> = {
     },
   ],
   combobox: [
-    {
-      componentName: "ComboboxContextValue",
-      props: [
-        {
-          name: "inputRef",
-          type: "RefObject<HTMLInputElement | null>",
-          required: true,
-          description: "",
-        },
-        {
-          name: "contentRef",
-          type: "RefObject<HTMLDivElement | null>",
-          required: true,
-          description: "",
-        },
-      ],
-    },
     {
       componentName: "ComboboxProps",
       props: [
@@ -613,7 +618,8 @@ export const componentPropsMap: Record<string, ComponentPropsSection[]> = {
           name: "showClearButton",
           type: "boolean",
           required: false,
-          description: "",
+          description: "Renders a button to clear the input text when populated.",
+          defaultValue: "true",
         },
         {
           name: "getTagLabel",
@@ -637,6 +643,7 @@ export const componentPropsMap: Record<string, ComponentPropsSection[]> = {
           type: "boolean",
           required: false,
           description: "",
+          defaultValue: "false",
         },
         {
           name: "group",
@@ -660,23 +667,6 @@ export const componentPropsMap: Record<string, ComponentPropsSection[]> = {
     },
   ],
   "command-palette": [
-    {
-      componentName: "CommandPaletteContextValue",
-      props: [
-        {
-          name: "inputRef",
-          type: "RefObject<HTMLInputElement | null>",
-          required: true,
-          description: "",
-        },
-        {
-          name: "panelRef",
-          type: "RefObject<HTMLDivElement | null>",
-          required: true,
-          description: "",
-        },
-      ],
-    },
     {
       componentName: "CommandPaletteProps",
       props: [
@@ -726,7 +716,8 @@ export const componentPropsMap: Record<string, ComponentPropsSection[]> = {
           name: "hotkey",
           type: "string | null",
           required: false,
-          description: "",
+          description: "Global keyboard shortcut that toggles the palette.",
+          defaultValue: '"mod+k"',
         },
         {
           name: "id",
@@ -779,6 +770,7 @@ export const componentPropsMap: Record<string, ComponentPropsSection[]> = {
           type: "boolean",
           required: false,
           description: "",
+          defaultValue: "false",
         },
         {
           name: "icon",
@@ -809,7 +801,8 @@ export const componentPropsMap: Record<string, ComponentPropsSection[]> = {
           name: "caption",
           type: "string",
           required: true,
-          description: "",
+          description:
+            "Accessible table caption describing the tabular dataset to screen readers.",
         },
         {
           name: "children",
@@ -844,17 +837,6 @@ export const componentPropsMap: Record<string, ComponentPropsSection[]> = {
     },
   ],
   dialog: [
-    {
-      componentName: "DialogContextValue",
-      props: [
-        {
-          name: "triggerRef",
-          type: "RefObject<HTMLElement | null>",
-          required: true,
-          description: "",
-        },
-      ],
-    },
     {
       componentName: "DialogProps",
       props: [
@@ -920,35 +902,21 @@ export const componentPropsMap: Record<string, ComponentPropsSection[]> = {
           name: "size",
           type: "'sm' | 'md' | 'lg' | 'xl'",
           required: false,
-          description: "",
+          description:
+            'Max width — matches this library\'s small/medium/large content sizes. Default "md".',
+          defaultValue: '"md"',
         },
         {
           name: "showCloseButton",
           type: "boolean",
           required: false,
-          description: "",
+          description: 'Shows the top-right "X" close button. Default true.',
+          defaultValue: "true",
         },
       ],
     },
   ],
   "dropdown-menu": [
-    {
-      componentName: "DropdownMenuContextValue",
-      props: [
-        {
-          name: "triggerRef",
-          type: "RefObject<HTMLElement | null>",
-          required: true,
-          description: "",
-        },
-        {
-          name: "contentRef",
-          type: "RefObject<HTMLDivElement | null>",
-          required: true,
-          description: "",
-        },
-      ],
-    },
     {
       componentName: "DropdownMenuProps",
       props: [
@@ -992,12 +960,14 @@ export const componentPropsMap: Record<string, ComponentPropsSection[]> = {
           type: "boolean",
           required: false,
           description: "",
+          defaultValue: "false",
         },
         {
           name: "destructive",
           type: "boolean",
           required: false,
           description: "",
+          defaultValue: "false",
         },
         {
           name: "icon",
@@ -1118,12 +1088,14 @@ export const componentPropsMap: Record<string, ComponentPropsSection[]> = {
           type: "'stacked' | 'inline'",
           required: false,
           description: "",
+          defaultValue: '"stacked"',
         },
         {
           name: "dir",
           type: "'ltr' | 'rtl'",
           required: false,
           description: "",
+          defaultValue: '"ltr"',
         },
         {
           name: "wrapperClassName",
@@ -1235,24 +1207,28 @@ export const componentPropsMap: Record<string, ComponentPropsSection[]> = {
           type: "boolean",
           required: false,
           description: "",
+          defaultValue: "false",
         },
         {
           name: "disabled",
           type: "boolean",
           required: false,
           description: "",
+          defaultValue: "false",
         },
         {
           name: "required",
           type: "boolean",
           required: false,
           description: "",
+          defaultValue: "false",
         },
         {
           name: "dir",
           type: "'ltr' | 'rtl'",
           required: false,
           description: "",
+          defaultValue: '"ltr"',
         },
         {
           name: "className",
@@ -1345,6 +1321,7 @@ export const componentPropsMap: Record<string, ComponentPropsSection[]> = {
           type: "boolean",
           required: false,
           description: "",
+          defaultValue: "false",
         },
         {
           name: "name",
@@ -1357,18 +1334,21 @@ export const componentPropsMap: Record<string, ComponentPropsSection[]> = {
           type: "'horizontal' | 'vertical'",
           required: false,
           description: "",
+          defaultValue: '"vertical"',
         },
         {
           name: "dir",
           type: "'ltr' | 'rtl'",
           required: false,
           description: "",
+          defaultValue: '"ltr"',
         },
         {
           name: "responsive",
           type: "boolean",
           required: false,
           description: "",
+          defaultValue: "false",
         },
         {
           name: "label",
@@ -1514,12 +1494,14 @@ export const componentPropsMap: Record<string, ComponentPropsSection[]> = {
           type: "TabsOrientation",
           required: false,
           description: "",
+          defaultValue: '"horizontal"',
         },
         {
           name: "activationMode",
           type: "TabsActivationMode",
           required: false,
           description: "",
+          defaultValue: '"automatic"',
         },
         {
           name: "dir",
@@ -1532,6 +1514,7 @@ export const componentPropsMap: Record<string, ComponentPropsSection[]> = {
           type: "boolean",
           required: false,
           description: "",
+          defaultValue: "true",
         },
         {
           name: "id",
@@ -1549,6 +1532,7 @@ export const componentPropsMap: Record<string, ComponentPropsSection[]> = {
           type: "boolean",
           required: false,
           description: "",
+          defaultValue: "false",
         },
       ],
     },
@@ -1566,6 +1550,7 @@ export const componentPropsMap: Record<string, ComponentPropsSection[]> = {
           type: "boolean",
           required: false,
           description: "",
+          defaultValue: "false",
         },
         {
           name: "icon",
@@ -1594,13 +1579,17 @@ export const componentPropsMap: Record<string, ComponentPropsSection[]> = {
           name: "forceMount",
           type: "boolean",
           required: false,
-          description: "",
+          description:
+            "Keep the panel mounted (with visibility toggled) even before first selection.",
+          defaultValue: "false",
         },
         {
           name: "lazyMount",
           type: "boolean",
           required: false,
-          description: "",
+          description:
+            "Defer mounting panel contents until first selected. Default true.",
+          defaultValue: "true",
         },
       ],
     },
@@ -1638,12 +1627,14 @@ export const componentPropsMap: Record<string, ComponentPropsSection[]> = {
           type: "boolean",
           required: false,
           description: "",
+          defaultValue: "false",
         },
         {
           name: "maxRows",
           type: "number",
           required: false,
           description: "",
+          defaultValue: "6",
         },
         {
           name: "actionButton",
@@ -1656,6 +1647,7 @@ export const componentPropsMap: Record<string, ComponentPropsSection[]> = {
           type: "'ltr' | 'rtl'",
           required: false,
           description: "",
+          defaultValue: '"ltr"',
         },
         {
           name: "className",
@@ -1674,46 +1666,6 @@ export const componentPropsMap: Record<string, ComponentPropsSection[]> = {
   ],
   toast: [
     {
-      componentName: "ToastProps",
-      props: [
-        {
-          name: "toast",
-          type: "ToastItem",
-          required: true,
-          description: "",
-        },
-        {
-          name: "onDismiss",
-          type: "() => void",
-          required: true,
-          description: "",
-        },
-        {
-          name: "onScheduleDismiss",
-          type: "(ms: number) => void",
-          required: true,
-          description: "",
-        },
-        {
-          name: "onPause",
-          type: "() => void",
-          required: true,
-          description: "",
-        },
-      ],
-    },
-    {
-      componentName: "ToastContextValue",
-      props: [
-        {
-          name: "push",
-          type: "(toast: Omit<ToastItem, 'id'>) => string",
-          required: true,
-          description: "",
-        },
-      ],
-    },
-    {
       componentName: "ToastProviderProps",
       props: [
         {
@@ -1727,34 +1679,12 @@ export const componentPropsMap: Record<string, ComponentPropsSection[]> = {
           type: "ToastPlacement",
           required: false,
           description: "",
+          defaultValue: '"bottom-right"',
         },
       ],
     },
   ],
   tooltip: [
-    {
-      componentName: "TooltipContextValue",
-      props: [
-        {
-          name: "triggerRef",
-          type: "RefObject<HTMLElement | null>",
-          required: true,
-          description: "",
-        },
-        {
-          name: "placement",
-          type: "TooltipPlacement",
-          required: true,
-          description: "",
-        },
-        {
-          name: "showArrow",
-          type: "boolean",
-          required: true,
-          description: "",
-        },
-      ],
-    },
     {
       componentName: "TooltipProps",
       props: [
@@ -1780,7 +1710,8 @@ export const componentPropsMap: Record<string, ComponentPropsSection[]> = {
           name: "delayDuration",
           type: "number",
           required: false,
-          description: "",
+          description: "Delay (ms) before showing on hover. Default 300.",
+          defaultValue: "300",
         },
         {
           name: "disabled",
@@ -1792,13 +1723,17 @@ export const componentPropsMap: Record<string, ComponentPropsSection[]> = {
           name: "placement",
           type: "TooltipPlacement",
           required: false,
-          description: "",
+          description:
+            "Tooltip placement relative to trigger (top, right, bottom, left).",
+          defaultValue: '"top"',
         },
         {
           name: "showArrow",
           type: "boolean",
           required: false,
-          description: "",
+          description:
+            "Renders a small pointer arrow linking the tooltip to its trigger. Default true.",
+          defaultValue: "true",
         },
         {
           name: "id",
@@ -1841,6 +1776,7 @@ export const componentPropsMap: Record<string, ComponentPropsSection[]> = {
           type: "TreeSelectionMode",
           required: false,
           description: "",
+          defaultValue: '"single"',
         },
         {
           name: "selected",
@@ -1912,6 +1848,7 @@ export const componentPropsMap: Record<string, ComponentPropsSection[]> = {
           type: "boolean",
           required: false,
           description: "",
+          defaultValue: "false",
         },
         {
           name: "children",

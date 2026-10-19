@@ -51,7 +51,7 @@ export function ComponentPreview({
           </div>
         </TabsContent>
 
-        <TabsContent value="code" className="mt-0! p-0! focus:outline-hidden">
+        <TabsContent value="code" forceMount className="mt-0! p-0! focus:outline-hidden">
           <CodeBlock code={code} language={language} flush />
         </TabsContent>
       </Tabs>

@@ -3,6 +3,8 @@ import { Geist, Geist_Mono, Source_Serif_4 } from "next/font/google";
 import { getThemeScript } from "@/lib/theme-script";
 import { ThemeProvider } from "@/components/site/ThemeProvider";
 import { SmoothScroll } from "@/components/site/SmoothScroll";
+import { getSiteUrl, isSiteIndexable } from "@/lib/site-url";
+import { SITE_NAME, DEFAULT_DESCRIPTION } from "@/data/site";
 import "./globals.css";
 
 const geist = Geist({
@@ -24,13 +26,29 @@ const sourceSerif = Source_Serif_4({
   weight: ["400", "600"],
 });
 
+const siteUrl = getSiteUrl();
+const indexable = isSiteIndexable();
+
 export const metadata: Metadata = {
+  metadataBase: siteUrl ? new URL(siteUrl) : undefined,
   title: {
     default: "Accessly UI — Accessible React Components",
     template: "%s | Accessly UI",
   },
-  description:
-    "22 WCAG 2.2 AA accessible React components with keyboard navigation, focus management, and ARIA wiring built in.",
+  description: DEFAULT_DESCRIPTION,
+  openGraph: {
+    title: "Accessly UI — Accessible React Components",
+    description: DEFAULT_DESCRIPTION,
+    siteName: SITE_NAME,
+    type: "website",
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Accessly UI — Accessible React Components",
+    description: DEFAULT_DESCRIPTION,
+  },
+  robots: indexable ? undefined : { index: false, follow: false },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

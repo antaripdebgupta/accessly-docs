@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import type { ComponentMeta } from "@/data/components/registry";
 import { componentRegistry } from "@/data/components/registry";
 import type { ComponentPropsSection, PropDoc } from "@/data/components/props";
@@ -36,36 +35,74 @@ const keyboardColumns: DataTableColumn<ComponentMeta["keyboardInteractions"][num
     },
   ];
 
-const propColumns: DataTableColumn<PropDoc>[] = [
-  {
-    id: "name",
-    header: "Prop",
-    cell: (row) => (
-      <span className="font-mono text-sm font-medium text-[var(--text)]">{row.name}</span>
-    ),
-  },
-  {
-    id: "type",
-    header: "Type",
-    cell: (row) => (
-      <code className="rounded bg-[var(--surface-raised)] px-1.5 py-0.5 font-mono text-sm text-[var(--text)]">
-        {row.type}
-      </code>
-    ),
-  },
-  {
-    id: "required",
-    header: "Requirement",
-    cell: (row) =>
-      row.required ? (
-        <span className="text-sm font-semibold text-amber-600 dark:text-amber-400">
-          required
+function getPropColumns(props: PropDoc[]): DataTableColumn<PropDoc>[] {
+  const hasDefaults = props.some(
+    (p) => p.defaultValue !== undefined && p.defaultValue !== ""
+  );
+  const hasDescriptions = props.some((p) =>
+    Boolean(p.description && p.description.trim())
+  );
+
+  const cols: DataTableColumn<PropDoc>[] = [
+    {
+      id: "name",
+      header: "Prop",
+      cell: (row) => (
+        <span className="font-mono text-sm font-medium text-[var(--text)]">
+          {row.name}
         </span>
-      ) : (
-        <span className="text-sm text-[var(--text-muted)]">optional</span>
       ),
-  },
-];
+    },
+    {
+      id: "type",
+      header: "Type",
+      cell: (row) => (
+        <code className="rounded bg-[var(--surface-raised)] px-1.5 py-0.5 font-mono text-sm text-[var(--text)]">
+          {row.type}
+        </code>
+      ),
+    },
+    {
+      id: "required",
+      header: "Requirement",
+      cell: (row) =>
+        row.required ? (
+          <span className="text-sm font-semibold text-amber-600 dark:text-amber-400">
+            required
+          </span>
+        ) : (
+          <span className="text-sm text-[var(--text-muted)]">optional</span>
+        ),
+    },
+  ];
+
+  if (hasDefaults) {
+    cols.push({
+      id: "defaultValue",
+      header: "Default",
+      cell: (row) =>
+        row.defaultValue ? (
+          <code className="rounded bg-[var(--surface-raised)] px-1.5 py-0.5 font-mono text-xs text-[var(--text-muted)]">
+            {row.defaultValue}
+          </code>
+        ) : (
+          <span className="text-xs text-[var(--text-faint)]">—</span>
+        ),
+    });
+  }
+
+  if (hasDescriptions) {
+    cols.push({
+      id: "description",
+      header: "Description",
+      cell: (row) => (
+        <span className="text-sm text-[var(--text-muted)]">{row.description || "—"}</span>
+      ),
+    });
+  }
+
+  return cols;
+}
 
 export interface ComponentDocViewProps {
   meta: ComponentMeta;
@@ -90,18 +127,23 @@ export function ComponentDocView({
   };
   const { Demo, code, importCode, stories } = entry;
 
+  // Use concise answer-first summary for page lead, fallback to description
+  const leadText = meta.summary || meta.description;
+
   return (
     <DocArticle size="default">
-      <PageHeading title={meta.name} description={meta.description} />
+      <PageHeading title={meta.name} description={leadText} />
 
       <section className="mt-8">
         <SectionHeading id="import" level={2}>
           Import
         </SectionHeading>
-        <CodeBlock code={importCode} language="tsx" filename="tsx" />
+        <div className="mt-3">
+          <CodeBlock code={importCode} language="tsx" filename="tsx" />
+        </div>
       </section>
 
-      <section className="mt-10 space-y-12">
+      <section className="mt-10 space-y-8">
         {stories && stories.length > 0
           ? stories.map((story) => {
               const StoryDemo = story.Demo;
@@ -150,7 +192,7 @@ export function ComponentDocView({
                 <div className="overflow-x-auto">
                   <DataTable
                     data={section.props}
-                    columns={propColumns}
+                    columns={getPropColumns(section.props)}
                     getRowId={(prop) => prop.name}
                     caption={`${section.componentName} props`}
                     className="w-full rounded-none! border-0! text-left text-sm shadow-none! [&>div]:rounded-none! [&>div]:border-0! [&>div]:shadow-none!"
@@ -165,48 +207,73 @@ export function ComponentDocView({
         )}
       </section>
 
-      {meta.keyboardInteractions.length > 0 && (
-        <section className="mt-12">
-          <SectionHeading id="keyboard-interactions" level={2}>
-            Keyboard Interactions
-          </SectionHeading>
-          <div className="mt-4 overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--surface)]">
-            <div className="overflow-x-auto">
-              <DataTable
-                data={meta.keyboardInteractions}
-                columns={keyboardColumns}
-                getRowId={(_, i) => String(i)}
-                caption="Keyboard interactions"
-                className="w-full rounded-none! border-0! text-left text-sm shadow-none! [&>div]:rounded-none! [&>div]:border-0! [&>div]:shadow-none!"
-              >
-                <DataTableHeader />
-                <DataTableBody />
-              </DataTable>
+      <section className="mt-12">
+        {meta.keyboardInteractions && meta.keyboardInteractions.length > 0 && (
+          <div className="mt-6">
+            <h3
+              id="keyboard-interactions"
+              className="text-base font-semibold text-[var(--text)]"
+            >
+              Keyboard Interactions
+            </h3>
+            <div className="mt-3 overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--surface)]">
+              <div className="overflow-x-auto">
+                <DataTable
+                  data={meta.keyboardInteractions}
+                  columns={keyboardColumns}
+                  getRowId={(_, i) => String(i)}
+                  caption="Keyboard interactions"
+                  className="w-full rounded-none! border-0! text-left text-sm shadow-none! [&>div]:rounded-none! [&>div]:border-0! [&>div]:shadow-none!"
+                >
+                  <DataTableHeader />
+                  <DataTableBody />
+                </DataTable>
+              </div>
             </div>
           </div>
-        </section>
-      )}
+        )}
 
-      {meta.relatedComponents.length > 0 && (
-        <section className="mt-12">
-          <SectionHeading level={2}>Related Components</SectionHeading>
-          <div className="mt-4 flex flex-wrap gap-2">
-            {meta.relatedComponents.map((relSlug) => {
-              const relMeta = componentRegistry[relSlug];
-              if (!relMeta) return null;
-              return (
-                <Link
-                  key={relSlug}
-                  href={`/components/${relSlug}`}
-                  className="rounded-full border border-[var(--border)] bg-[var(--surface)] px-3.5 py-1.5 text-sm font-medium text-[var(--text-muted)] transition-colors hover:border-[var(--accent)] hover:text-[var(--accent)]"
+        {meta.wcagCriteria && meta.wcagCriteria.length > 0 && (
+          <div className="mt-4">
+            <h3 id="wcag-criteria" className="text-sm font-semibold text-[var(--text)]">
+              WCAG Criteria
+            </h3>
+            <ul className="mt-2 flex flex-wrap gap-2">
+              {meta.wcagCriteria.map((c) => (
+                <li
+                  key={c}
+                  className="rounded-md border border-[var(--border)] bg-[var(--surface)] px-2.5 py-1 font-mono text-xs text-[var(--text-muted)]"
                 >
-                  {relMeta.name}
-                </Link>
-              );
-            })}
+                  {c}
+                </li>
+              ))}
+            </ul>
           </div>
-        </section>
-      )}
+        )}
+
+        {meta.commonIssues && meta.commonIssues.length > 0 && (
+          <div className="mt-6">
+            <h3 id="common-issues" className="text-base font-semibold text-[var(--text)]">
+              Common issues
+            </h3>
+            <div className="mt-3 space-y-3">
+              {meta.commonIssues.map((issue) => (
+                <div
+                  key={issue.title}
+                  className="rounded-xl border border-[var(--border)] bg-[var(--surface)] p-4"
+                >
+                  <h4 className="text-sm font-semibold text-[var(--text)]">
+                    {issue.title}
+                  </h4>
+                  <p className="mt-1 text-sm text-[var(--text-muted)]">
+                    {issue.description}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </section>
 
       <DocPager
         prev={

@@ -1,6 +1,7 @@
 import { Container } from "@/components/site/Container";
 import { LinkButton } from "@/components/site/LinkButton";
 import { HeroDemo } from "@/components/site/home/HeroDemo";
+import { COMPONENT_COUNT } from "@/data/components/registry";
 
 export function Hero() {
   return (
@@ -35,7 +36,8 @@ export function Hero() {
               className="reveal max-w-[44ch] text-lg text-[var(--text-muted)]"
               style={{ animationDelay: "120ms" }}
             >
-              Keyboard, focus and ARIA handled for you. 22 React components.
+              Keyboard, focus and ARIA handled for you. {COMPONENT_COUNT} React
+              components.
             </p>
 
             {/* 4. Two CTAs */}

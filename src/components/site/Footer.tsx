@@ -1,8 +1,9 @@
+import Image from "next/image";
 import Link from "next/link";
 import { cacheLife } from "next/cache";
 import { Container } from "@/components/site/Container";
-import { CheckIcon } from "@/components/icons";
 import { GITHUB_URL, NPM_URL } from "@/data/site";
+import { footerNavLinks } from "@/data/navigation";
 
 export async function Footer() {
   "use cache";
@@ -15,27 +16,31 @@ export async function Footer() {
       <Container>
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-2 text-sm text-[var(--text-muted)]">
-            <span className="inline-flex h-[18px] w-[18px] items-center justify-center rounded-[5px] bg-[var(--accent)] text-[var(--canvas)]">
-              <CheckIcon size={10} strokeWidth={3} />
+            <Image
+              src="/logo.png"
+              alt="Accessly UI logo"
+              width={24}
+              height={24}
+              className="h-8 w-8 rounded-md object-cover"
+              priority
+            />
+            <span className="font-semibold text-nowrap text-[var(--text)]">
+              Accessly UI
             </span>
-            <span className="font-semibold text-[var(--text)]">Accessly UI</span>
             <span aria-hidden="true">·</span>
-            <span>&copy; {year} · MIT</span>
+            <span className="text-nowrap">&copy; {year} · MIT</span>
           </div>
 
           <div className="flex flex-wrap items-center gap-6">
-            <Link
-              href="/docs/introduction"
-              className="text-sm text-[var(--text-muted)] transition-colors hover:text-[var(--text)]"
-            >
-              Docs
-            </Link>
-            <Link
-              href="/components"
-              className="text-sm text-[var(--text-muted)] transition-colors hover:text-[var(--text)]"
-            >
-              Components
-            </Link>
+            {footerNavLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="text-sm text-[var(--text-muted)] transition-colors hover:text-[var(--text)]"
+              >
+                {link.title}
+              </Link>
+            ))}
             <a
               href={GITHUB_URL}
               target="_blank"

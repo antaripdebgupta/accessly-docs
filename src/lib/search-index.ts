@@ -20,7 +20,8 @@ export function buildSearchIndex(): SearchEntry[] {
         entries.push({
           id: item.href,
           title: item.title,
-          description: `${section.title} documentation guide for Accessly UI`,
+          description:
+            item.description || `${section.title} documentation guide for Accessly UI`,
           category: section.title,
           url: item.href,
           keywords: [

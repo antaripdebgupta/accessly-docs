@@ -9,27 +9,34 @@ import { DocPager } from "@/components/docs/DocPager";
 import { ThemeToggle } from "@/components/site/ThemeProvider";
 
 const tokensCssExample = `:root {
-  --canvas: #f8fafc;
+  --header-h: 4rem;
+  --canvas: #f7f7f8;
   --surface: #ffffff;
-  --surface-raised: #f1f5f9;
-  --border: #e2e8f0;
-  --border-strong: #cbd5e1;
+  --surface-raised: #ededf0;
+  --border: #d4d4d8;
+  --border-strong: #7a7a82;
+  --border-subtle: #e4e4e7;
   --accent: #2563eb;
-  --accent-subtle: #eff6ff;
-  --text: #0f172a;
-  --text-muted: #64748b;
+  --accent-subtle: #eff3fe;
+  --accent-muted: #93bbfd;
+  --text: #18181b;
+  --text-muted: #48484d;
+  --text-faint: #494950;
 }
 
 .dark {
-  --canvas: #090d16;
-  --surface: #0f172a;
-  --surface-raised: #1e293b;
-  --border: #1e293b;
-  --border-strong: #334155;
-  --accent: #3b82f6;
-  --accent-subtle: #1e3a8a;
-  --text: #f8fafc;
-  --text-muted: #94a3b8;
+  --canvas: #111113;
+  --surface: #19191b;
+  --surface-raised: #222225;
+  --border: #2e2e33;
+  --border-strong: #797981;
+  --border-subtle: #27272a;
+  --accent: #60a5fa;
+  --accent-subtle: #172137;
+  --accent-muted: #2563eb;
+  --text: #e4e4e7;
+  --text-muted: #babac0;
+  --text-faint: #9a9aa2;
 }`;
 
 const useThemeExample = `import { useTheme } from "@accessly-ui/react";

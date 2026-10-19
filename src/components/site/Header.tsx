@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -7,7 +8,7 @@ import { Tooltip, TooltipTrigger, TooltipContent } from "@accessly-ui/react";
 import { ThemeToggle } from "@/components/site/ThemeProvider";
 import { SearchDialog } from "@/components/site/SearchDialog";
 import { MobileNav } from "@/components/site/MobileNav";
-import { CheckIcon, GitHubIcon } from "@/components/icons";
+import { GitHubIcon } from "@/components/icons";
 import { GITHUB_URL } from "@/data/site";
 
 export function Header() {
@@ -51,9 +52,14 @@ export function Header() {
             </button>
 
             <Link href="/" className="flex shrink-0 items-center gap-2.5">
-              <span className="inline-flex h-6 w-6 items-center justify-center rounded-md bg-[var(--accent)] text-[var(--canvas)]">
-                <CheckIcon size={13} strokeWidth={3} />
-              </span>
+              <Image
+                src="/logo.png"
+                alt="Accessly UI logo"
+                width={24}
+                height={24}
+                className="h-8 w-8 rounded-md object-cover"
+                priority
+              />
               <span className="text-base font-semibold tracking-tight text-[var(--text)]">
                 Accessly UI
               </span>

@@ -5,6 +5,7 @@ import { PageHeading } from "@/components/docs/PageHeading";
 import { SectionHeading } from "@/components/docs/SectionHeading";
 import { DocPager } from "@/components/docs/DocPager";
 import { layers, principles, dataFlowSteps } from "@/data/docs/architecture";
+import { ArrowDown } from "lucide-react";
 
 export function ArchitectureContent() {
   return (
@@ -28,18 +29,7 @@ export function ArchitectureContent() {
             <div key={layer.name} className="flex w-full flex-col items-center">
               {i > 0 && (
                 <div className="flex justify-center py-1.5" aria-hidden="true">
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="var(--border-strong)"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M12 5v14M5 12l7 7 7-7" />
-                  </svg>
+                  <ArrowDown aria-hidden="true" className="h-3.5 w-3.5 shrink-0" />
                 </div>
               )}
               <div
@@ -128,14 +118,11 @@ export function ArchitectureContent() {
           Server and client boundaries
         </SectionHeading>
         <p className="mt-2 max-w-2xl text-sm leading-relaxed text-[var(--text-muted)]">
-          Components that hold no interactive state — Avatar, Breadcrumb, Alert, Skeleton
-          — render as Server Components by default. Anything that manages open/closed
-          state, focus, or keyboard interaction (Dialog, DropdownMenu, Combobox, Tabs) is
-          marked with{" "}
-          <code className="rounded bg-[var(--surface-raised)] px-1.5 py-0.5 font-mono text-[13px]">
-            &quot;use client&quot;
-          </code>{" "}
-          internally — you never need to add that directive yourself when importing from
+          Components that render presentational shells — such as Avatar, Breadcrumb, and
+          Skeleton — maintain minimal client runtime overhead, while interactive controls
+          that manage open/closed state, focus trapping, or keyboard roving (Dialog,
+          DropdownMenu, Combobox, Tabs) encapsulate their client interactivity internally
+          so you never need to wire client directives manually when importing from
           @accessly-ui/react.
         </p>
 
