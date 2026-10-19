@@ -2,12 +2,22 @@ import { describe, it, expect, vi } from "vitest";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { CodeBlock } from "@/components/mdx/CodeBlock";
 
+vi.mock("@/lib/highlight", () => ({
+  highlight: vi.fn(
+    async (code: string) => `<pre class="shiki"><code>${code}</code></pre>`
+  ),
+}));
+
 describe("<CodeBlock />", () => {
-  it("renders code content and filename header", () => {
-    render(<CodeBlock code="const a = 1;" language="typescript" filename="test.ts" />);
+  it("renders code content and filename header", async () => {
+    const { container } = render(
+      <CodeBlock code="const a = 1;" language="typescript" filename="test.ts" />
+    );
 
     expect(screen.getByText("test.ts")).toBeInTheDocument();
-    expect(screen.getByText("const a = 1;")).toBeInTheDocument();
+    await waitFor(() => {
+      expect(container.textContent).toContain("const a = 1;");
+    });
   });
 
   it("copies code to clipboard and updates accessible announcement", async () => {

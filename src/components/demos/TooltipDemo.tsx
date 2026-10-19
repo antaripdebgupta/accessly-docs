@@ -1,18 +1,13 @@
 "use client";
 
-import { Tooltip, TooltipTrigger, TooltipContent } from "@accessly-ui/react";
+import { Button, Tooltip, TooltipTrigger, TooltipContent } from "@accessly-ui/react";
 
 export function TooltipDefaultDemo() {
   return (
     <div className="flex items-center justify-center p-4">
       <Tooltip delayDuration={0}>
         <TooltipTrigger>
-          <button
-            type="button"
-            className="rounded-lg border border-[var(--border)] bg-[var(--surface-raised)] px-4 py-2 text-sm font-medium text-[var(--text)] transition-colors hover:border-[var(--accent)]"
-          >
-            Hover or focus me
-          </button>
+          <Button variant="secondary">Hover or focus me</Button>
         </TooltipTrigger>
         <TooltipContent>Saves your changes</TooltipContent>
       </Tooltip>
@@ -20,15 +15,13 @@ export function TooltipDefaultDemo() {
   );
 }
 
-export const tooltipDefaultCode = `import { Tooltip, TooltipTrigger, TooltipContent } from "@accessly-ui/react";
+export const tooltipDefaultCode = `import { Button, Tooltip, TooltipTrigger, TooltipContent } from "@accessly-ui/react";
 
 export default function Example() {
   return (
     <Tooltip delayDuration={0}>
       <TooltipTrigger>
-        <button type="button" className="rounded-lg border border-border px-4 py-2 text-sm">
-          Hover or focus me
-        </button>
+        <Button variant="secondary">Hover or focus me</Button>
       </TooltipTrigger>
       <TooltipContent>Saves your changes</TooltipContent>
     </Tooltip>
@@ -41,12 +34,9 @@ export function TooltipPlacementsDemo() {
       {(["left", "top", "bottom", "right"] as const).map((placement) => (
         <Tooltip key={placement} delayDuration={0} placement={placement}>
           <TooltipTrigger>
-            <button
-              type="button"
-              className="rounded-lg border border-[var(--border)] bg-[var(--surface-raised)] px-4 py-2 text-sm font-medium text-[var(--text)] capitalize"
-            >
-              {placement}
-            </button>
+            <Button variant="secondary">
+              {placement.charAt(0).toUpperCase() + placement.slice(1)}
+            </Button>
           </TooltipTrigger>
           <TooltipContent>{placement} tooltip</TooltipContent>
         </Tooltip>
@@ -55,7 +45,7 @@ export function TooltipPlacementsDemo() {
   );
 }
 
-export const tooltipPlacementsCode = `import { Tooltip, TooltipTrigger, TooltipContent } from "@accessly-ui/react";
+export const tooltipPlacementsCode = `import { Button, Tooltip, TooltipTrigger, TooltipContent } from "@accessly-ui/react";
 
 export default function Example() {
   return (
@@ -63,9 +53,9 @@ export default function Example() {
       {(["left", "top", "bottom", "right"] as const).map((placement) => (
         <Tooltip key={placement} delayDuration={0} placement={placement}>
           <TooltipTrigger>
-            <button type="button" className="rounded-lg border border-border px-4 py-2 text-sm capitalize">
-              {placement}
-            </button>
+            <Button variant="secondary">
+              {placement.charAt(0).toUpperCase() + placement.slice(1)}
+            </Button>
           </TooltipTrigger>
           <TooltipContent>{placement} tooltip</TooltipContent>
         </Tooltip>
@@ -79,12 +69,7 @@ export function TooltipHoverDelayDemo() {
     <div className="flex items-center justify-center p-4">
       <Tooltip delayDuration={600}>
         <TooltipTrigger>
-          <button
-            type="button"
-            className="rounded-lg border border-[var(--border)] bg-[var(--surface-raised)] px-4 py-2 text-sm font-medium text-[var(--text)]"
-          >
-            Hover and wait 600ms
-          </button>
+          <Button variant="secondary">Hover and wait 600ms</Button>
         </TooltipTrigger>
         <TooltipContent>Appeared after a delay</TooltipContent>
       </Tooltip>
@@ -92,15 +77,13 @@ export function TooltipHoverDelayDemo() {
   );
 }
 
-export const tooltipHoverDelayCode = `import { Tooltip, TooltipTrigger, TooltipContent } from "@accessly-ui/react";
+export const tooltipHoverDelayCode = `import { Button, Tooltip, TooltipTrigger, TooltipContent } from "@accessly-ui/react";
 
 export default function Example() {
   return (
     <Tooltip delayDuration={600}>
       <TooltipTrigger>
-        <button type="button" className="rounded-lg border border-border px-4 py-2 text-sm">
-          Hover and wait 600ms
-        </button>
+        <Button variant="secondary">Hover and wait 600ms</Button>
       </TooltipTrigger>
       <TooltipContent>Appeared after a delay</TooltipContent>
     </Tooltip>
@@ -112,12 +95,7 @@ export function TooltipDisabledDemo() {
     <div className="flex items-center justify-center p-4">
       <Tooltip delayDuration={0} disabled>
         <TooltipTrigger>
-          <button
-            type="button"
-            className="rounded-lg border border-[var(--border)] bg-[var(--surface-raised)] px-4 py-2 text-sm font-medium text-[var(--text)]"
-          >
-            Tooltip disabled
-          </button>
+          <Button variant="secondary">Tooltip disabled</Button>
         </TooltipTrigger>
         <TooltipContent>You should never see this</TooltipContent>
       </Tooltip>
@@ -125,15 +103,13 @@ export function TooltipDisabledDemo() {
   );
 }
 
-export const tooltipDisabledCode = `import { Tooltip, TooltipTrigger, TooltipContent } from "@accessly-ui/react";
+export const tooltipDisabledCode = `import { Button, Tooltip, TooltipTrigger, TooltipContent } from "@accessly-ui/react";
 
 export default function Example() {
   return (
     <Tooltip delayDuration={0} disabled>
       <TooltipTrigger>
-        <button type="button" className="rounded-lg border border-border px-4 py-2 text-sm">
-          Tooltip disabled
-        </button>
+        <Button variant="secondary">Tooltip disabled</Button>
       </TooltipTrigger>
       <TooltipContent>You should never see this</TooltipContent>
     </Tooltip>
@@ -151,13 +127,9 @@ export function TooltipDisabledButtonDemo() {
         <TooltipTrigger>
           {/* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */}
           <span tabIndex={0} className="inline-block cursor-not-allowed">
-            <button
-              type="button"
-              disabled
-              className="pointer-events-none rounded-lg border border-[var(--border)] bg-[var(--surface-raised)] px-4 py-2 text-sm opacity-50"
-            >
+            <Button variant="secondary" disabled>
               Disabled
-            </button>
+            </Button>
           </span>
         </TooltipTrigger>
         <TooltipContent>This feature is currently unavailable</TooltipContent>
@@ -166,16 +138,16 @@ export function TooltipDisabledButtonDemo() {
   );
 }
 
-export const tooltipDisabledButtonCode = `import { Tooltip, TooltipTrigger, TooltipContent } from "@accessly-ui/react";
+export const tooltipDisabledButtonCode = `import { Button, Tooltip, TooltipTrigger, TooltipContent } from "@accessly-ui/react";
 
 export default function Example() {
   return (
     <Tooltip delayDuration={0}>
       <TooltipTrigger>
         <span tabIndex={0} className="inline-block cursor-not-allowed">
-          <button type="button" disabled className="pointer-events-none rounded-lg border border-border px-4 py-2 text-sm opacity-50">
+          <Button variant="secondary" disabled>
             Disabled
-          </button>
+          </Button>
         </span>
       </TooltipTrigger>
       <TooltipContent>This feature is currently unavailable</TooltipContent>
@@ -189,13 +161,14 @@ export function TooltipTextTriggerDemo() {
       This component follows the{" "}
       <Tooltip delayDuration={0}>
         <TooltipTrigger>
-          {/* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */}
+          {/* eslint-disable jsx-a11y/no-noninteractive-tabindex */}
           <span
             tabIndex={0}
             className="cursor-help text-[var(--text)] underline decoration-dotted underline-offset-4"
           >
             WAI-ARIA APG
           </span>
+          {/* eslint-enable jsx-a11y/no-noninteractive-tabindex */}
         </TooltipTrigger>
         <TooltipContent>
           Web Accessibility Initiative — Authoring Practices Guide
@@ -230,12 +203,7 @@ export function TooltipNoArrowDemo() {
     <div className="flex items-center justify-center p-4">
       <Tooltip delayDuration={0} showArrow={false}>
         <TooltipTrigger>
-          <button
-            type="button"
-            className="rounded-lg border border-[var(--border)] bg-[var(--surface-raised)] px-4 py-2 text-sm font-medium text-[var(--text)]"
-          >
-            No arrow
-          </button>
+          <Button variant="secondary">No arrow</Button>
         </TooltipTrigger>
         <TooltipContent>Plain tooltip, no pointer</TooltipContent>
       </Tooltip>
@@ -243,15 +211,13 @@ export function TooltipNoArrowDemo() {
   );
 }
 
-export const tooltipNoArrowCode = `import { Tooltip, TooltipTrigger, TooltipContent } from "@accessly-ui/react";
+export const tooltipNoArrowCode = `import { Button, Tooltip, TooltipTrigger, TooltipContent } from "@accessly-ui/react";
 
 export default function Example() {
   return (
     <Tooltip delayDuration={0} showArrow={false}>
       <TooltipTrigger>
-        <button type="button" className="rounded-lg border border-border px-4 py-2 text-sm">
-          No arrow
-        </button>
+        <Button variant="secondary">No arrow</Button>
       </TooltipTrigger>
       <TooltipContent>Plain tooltip, no pointer</TooltipContent>
     </Tooltip>
@@ -269,12 +235,7 @@ export function TooltipRTLDemo() {
       ].map(({ placement, label }) => (
         <Tooltip key={placement} delayDuration={0} placement={placement}>
           <TooltipTrigger>
-            <button
-              type="button"
-              className="rounded-lg border border-[var(--border)] bg-[var(--surface-raised)] px-4 py-2 text-sm font-medium text-[var(--text)]"
-            >
-              {label}
-            </button>
+            <Button variant="secondary">{label}</Button>
           </TooltipTrigger>
           <TooltipContent>إضافة إلى المكتبة</TooltipContent>
         </Tooltip>
@@ -283,7 +244,7 @@ export function TooltipRTLDemo() {
   );
 }
 
-export const tooltipRTLCode = `import { Tooltip, TooltipTrigger, TooltipContent } from "@accessly-ui/react";
+export const tooltipRTLCode = `import { Button, Tooltip, TooltipTrigger, TooltipContent } from "@accessly-ui/react";
 
 export default function Example() {
   return (
@@ -296,9 +257,7 @@ export default function Example() {
       ].map(({ placement, label }) => (
         <Tooltip key={placement} delayDuration={0} placement={placement}>
           <TooltipTrigger>
-            <button type="button" className="rounded-lg border border-border px-4 py-2 text-sm">
-              {label}
-            </button>
+            <Button variant="secondary">{label}</Button>
           </TooltipTrigger>
           <TooltipContent>إضافة إلى المكتبة</TooltipContent>
         </Tooltip>

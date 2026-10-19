@@ -1,5 +1,5 @@
-import { componentRegistry } from "./component-registry";
-import { allNavSections } from "./nav-config";
+import { componentRegistry } from "@/data/components/registry";
+import { allNavSections } from "@/data/navigation";
 
 export interface SearchEntry {
   id: string;
@@ -57,3 +57,15 @@ export function buildSearchIndex(): SearchEntry[] {
 }
 
 export const staticSearchIndex: SearchEntry[] = buildSearchIndex();
+
+export function score(entry: SearchEntry, query: string): number {
+  const q = query.trim().toLowerCase();
+  const title = entry.title.toLowerCase();
+  if (title === q) return 100;
+  if (title.startsWith(q)) return 80;
+  if (title.includes(q)) return 60;
+  if (entry.keywords?.some((k) => k.toLowerCase().startsWith(q))) return 40;
+  if (entry.category.toLowerCase().includes(q)) return 25;
+  if (entry.description.toLowerCase().includes(q)) return 10;
+  return 0;
+}

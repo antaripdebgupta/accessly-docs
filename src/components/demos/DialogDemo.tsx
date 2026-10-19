@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import {
+  Button,
   Dialog,
   DialogTrigger,
   DialogContent,
@@ -10,25 +11,14 @@ import {
   DialogDescription,
   DialogBody,
   DialogFooter,
-  DialogClose,
 } from "@accessly-ui/react";
 
-function TriggerButton({ children = "Open dialog" }: { children?: React.ReactNode }) {
-  return (
-    <button
-      type="button"
-      className="rounded-lg border border-[var(--border)] bg-[var(--surface-raised)] px-4 py-2 text-sm font-medium text-[var(--text)] transition-colors hover:border-[var(--accent)]"
-    >
-      {children}
-    </button>
-  );
-}
-
 export function DialogDefaultDemo() {
+  const [open, setOpen] = useState(false);
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger>
-        <TriggerButton />
+        <Button variant="secondary">Open dialog</Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
@@ -58,22 +48,21 @@ export function DialogDefaultDemo() {
           </div>
         </DialogBody>
         <DialogFooter>
-          <DialogClose className="rounded-lg border border-[var(--border)] px-4 py-2 text-sm">
+          <Button variant="secondary" onClick={() => setOpen(false)}>
             Cancel
-          </DialogClose>
-          <button
-            type="button"
-            className="rounded-lg bg-[var(--accent)] px-4 py-2 text-sm text-white"
-          >
+          </Button>
+          <Button variant="primary" onClick={() => setOpen(false)}>
             Save changes
-          </button>
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
   );
 }
 
-export const dialogDefaultCode = `import {
+export const dialogDefaultCode = `import { useState } from "react";
+import {
+  Button,
   Dialog,
   DialogTrigger,
   DialogContent,
@@ -82,16 +71,14 @@ export const dialogDefaultCode = `import {
   DialogDescription,
   DialogBody,
   DialogFooter,
-  DialogClose,
 } from "@accessly-ui/react";
 
 export default function Example() {
+  const [open, setOpen] = useState(false);
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger>
-        <button type="button" className="rounded-lg border border-border bg-surface-raised px-4 py-2 text-sm">
-          Open dialog
-        </button>
+        <Button variant="secondary">Open dialog</Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
@@ -109,8 +96,8 @@ export default function Example() {
           </div>
         </DialogBody>
         <DialogFooter>
-          <DialogClose className="rounded-lg border border-border px-4 py-2 text-sm">Cancel</DialogClose>
-          <button type="button" className="rounded-lg bg-accent px-4 py-2 text-sm text-white">Save changes</button>
+          <Button variant="secondary" onClick={() => setOpen(false)}>Cancel</Button>
+          <Button variant="primary" onClick={() => setOpen(false)}>Save changes</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
@@ -118,10 +105,11 @@ export default function Example() {
 }`;
 
 export function DialogCloseButtonDemo() {
+  const [open, setOpen] = useState(false);
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger>
-        <TriggerButton>Feedback</TriggerButton>
+        <Button variant="secondary">Feedback</Button>
       </DialogTrigger>
       <DialogContent showCloseButton={true} size="sm">
         <DialogHeader>
@@ -140,16 +128,18 @@ export function DialogCloseButtonDemo() {
           />
         </DialogBody>
         <DialogFooter>
-          <DialogClose className="rounded-lg bg-[var(--accent)] px-4 py-2 text-sm text-white">
+          <Button variant="primary" onClick={() => setOpen(false)}>
             Close
-          </DialogClose>
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
   );
 }
 
-export const dialogCloseButtonCode = `import {
+export const dialogCloseButtonCode = `import { useState } from "react";
+import {
+  Button,
   Dialog,
   DialogTrigger,
   DialogContent,
@@ -158,16 +148,14 @@ export const dialogCloseButtonCode = `import {
   DialogDescription,
   DialogBody,
   DialogFooter,
-  DialogClose,
 } from "@accessly-ui/react";
 
 export default function Example() {
+  const [open, setOpen] = useState(false);
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger>
-        <button type="button" className="rounded-lg border border-border bg-surface-raised px-4 py-2 text-sm">
-          Feedback
-        </button>
+        <Button variant="secondary">Feedback</Button>
       </DialogTrigger>
       <DialogContent showCloseButton={true} size="sm">
         <DialogHeader>
@@ -185,9 +173,7 @@ export default function Example() {
           />
         </DialogBody>
         <DialogFooter>
-          <DialogClose className="rounded-lg bg-accent px-4 py-2 text-sm text-white">
-            Close
-          </DialogClose>
+          <Button variant="primary" onClick={() => setOpen(false)}>Close</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
@@ -195,10 +181,11 @@ export default function Example() {
 }`;
 
 export function DialogNoCloseButtonDemo() {
+  const [open, setOpen] = useState(false);
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger>
-        <TriggerButton>Open without close button</TriggerButton>
+        <Button variant="secondary">Open without close button</Button>
       </DialogTrigger>
       <DialogContent showCloseButton={false}>
         <DialogHeader>
@@ -209,19 +196,21 @@ export function DialogNoCloseButtonDemo() {
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
-          <DialogClose className="rounded-lg border border-[var(--border)] px-4 py-2 text-sm">
+          <Button variant="secondary" onClick={() => setOpen(false)}>
             Cancel
-          </DialogClose>
-          <DialogClose className="rounded-lg bg-[var(--accent)] px-4 py-2 text-sm text-white">
+          </Button>
+          <Button variant="primary" onClick={() => setOpen(false)}>
             Confirm
-          </DialogClose>
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
   );
 }
 
-export const dialogNoCloseButtonCode = `import {
+export const dialogNoCloseButtonCode = `import { useState } from "react";
+import {
+  Button,
   Dialog,
   DialogTrigger,
   DialogContent,
@@ -229,16 +218,14 @@ export const dialogNoCloseButtonCode = `import {
   DialogTitle,
   DialogDescription,
   DialogFooter,
-  DialogClose,
 } from "@accessly-ui/react";
 
 export default function Example() {
+  const [open, setOpen] = useState(false);
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger>
-        <button type="button" className="rounded-lg border border-border bg-surface-raised px-4 py-2 text-sm">
-          Open without close button
-        </button>
+        <Button variant="secondary">Open without close button</Button>
       </DialogTrigger>
       <DialogContent showCloseButton={false}>
         <DialogHeader>
@@ -248,8 +235,8 @@ export default function Example() {
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
-          <DialogClose className="rounded-lg border border-border px-4 py-2 text-sm">Cancel</DialogClose>
-          <DialogClose className="rounded-lg bg-accent px-4 py-2 text-sm text-white">Confirm</DialogClose>
+          <Button variant="secondary" onClick={() => setOpen(false)}>Cancel</Button>
+          <Button variant="primary" onClick={() => setOpen(false)}>Confirm</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
@@ -257,10 +244,11 @@ export default function Example() {
 }`;
 
 export function DialogStickyFooterDemo() {
+  const [open, setOpen] = useState(false);
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger>
-        <TriggerButton>Open sticky-footer dialog</TriggerButton>
+        <Button variant="secondary">Open sticky-footer dialog</Button>
       </DialogTrigger>
       <DialogContent size="lg">
         <DialogHeader>
@@ -279,19 +267,21 @@ export function DialogStickyFooterDemo() {
           ))}
         </DialogBody>
         <DialogFooter>
-          <DialogClose className="rounded-lg border border-[var(--border)] px-4 py-2 text-sm">
+          <Button variant="secondary" onClick={() => setOpen(false)}>
             Decline
-          </DialogClose>
-          <DialogClose className="rounded-lg bg-[var(--accent)] px-4 py-2 text-sm text-white">
+          </Button>
+          <Button variant="primary" onClick={() => setOpen(false)}>
             Accept
-          </DialogClose>
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
   );
 }
 
-export const dialogStickyFooterCode = `import {
+export const dialogStickyFooterCode = `import { useState } from "react";
+import {
+  Button,
   Dialog,
   DialogTrigger,
   DialogContent,
@@ -300,16 +290,14 @@ export const dialogStickyFooterCode = `import {
   DialogDescription,
   DialogBody,
   DialogFooter,
-  DialogClose,
 } from "@accessly-ui/react";
 
 export default function Example() {
+  const [open, setOpen] = useState(false);
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger>
-        <button type="button" className="rounded-lg border border-border bg-surface-raised px-4 py-2 text-sm">
-          Open sticky-footer dialog
-        </button>
+        <Button variant="secondary">Open sticky-footer dialog</Button>
       </DialogTrigger>
       <DialogContent size="lg">
         <DialogHeader>
@@ -324,8 +312,8 @@ export default function Example() {
           ))}
         </DialogBody>
         <DialogFooter>
-          <DialogClose className="rounded-lg border border-border px-4 py-2 text-sm">Decline</DialogClose>
-          <DialogClose className="rounded-lg bg-accent px-4 py-2 text-sm text-white">Accept</DialogClose>
+          <Button variant="secondary" onClick={() => setOpen(false)}>Decline</Button>
+          <Button variant="primary" onClick={() => setOpen(false)}>Accept</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
@@ -336,7 +324,7 @@ export function DialogScrollableContentDemo() {
   return (
     <Dialog>
       <DialogTrigger>
-        <TriggerButton>Open scrollable dialog</TriggerButton>
+        <Button variant="secondary">Open scrollable dialog</Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
@@ -360,6 +348,7 @@ export function DialogScrollableContentDemo() {
 }
 
 export const dialogScrollableContentCode = `import {
+  Button,
   Dialog,
   DialogTrigger,
   DialogContent,
@@ -372,9 +361,7 @@ export default function Example() {
   return (
     <Dialog>
       <DialogTrigger>
-        <button type="button" className="rounded-lg border border-border bg-surface-raised px-4 py-2 text-sm">
-          Open scrollable dialog
-        </button>
+        <Button variant="secondary">Open scrollable dialog</Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
@@ -401,13 +388,9 @@ export function DialogControlledDemo() {
       <p className="text-sm text-[var(--text-muted)]">
         Externally controlled — open: {String(open)}
       </p>
-      <button
-        type="button"
-        onClick={() => setOpen(true)}
-        className="rounded-lg border border-[var(--border)] bg-[var(--surface-raised)] px-4 py-2 text-sm font-medium text-[var(--text)] transition-colors hover:border-[var(--accent)]"
-      >
+      <Button variant="secondary" onClick={() => setOpen(true)}>
         Open programmatically
-      </button>
+      </Button>
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent>
           <DialogHeader>
@@ -418,9 +401,9 @@ export function DialogControlledDemo() {
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
-            <DialogClose className="rounded-lg bg-[var(--accent)] px-4 py-2 text-sm text-white">
+            <Button variant="primary" onClick={() => setOpen(false)}>
               Close
-            </DialogClose>
+            </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
@@ -430,13 +413,13 @@ export function DialogControlledDemo() {
 
 export const dialogControlledCode = `import { useState } from "react";
 import {
+  Button,
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogDescription,
   DialogFooter,
-  DialogClose,
 } from "@accessly-ui/react";
 
 export default function Example() {
@@ -444,9 +427,9 @@ export default function Example() {
 
   return (
     <>
-      <button type="button" onClick={() => setOpen(true)} className="rounded-lg border border-border px-4 py-2 text-sm">
+      <Button variant="secondary" onClick={() => setOpen(true)}>
         Open programmatically
-      </button>
+      </Button>
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent>
           <DialogHeader>
@@ -456,9 +439,7 @@ export default function Example() {
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
-            <DialogClose className="rounded-lg bg-accent px-4 py-2 text-sm text-white">
-              Close
-            </DialogClose>
+            <Button variant="primary" onClick={() => setOpen(false)}>Close</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
@@ -467,11 +448,12 @@ export default function Example() {
 }`;
 
 export function DialogRTLDemo() {
+  const [open, setOpen] = useState(false);
   return (
     <div dir="rtl">
-      <Dialog>
+      <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger>
-          <TriggerButton>فتح الحوار</TriggerButton>
+          <Button variant="secondary">فتح الحوار</Button>
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
@@ -489,12 +471,12 @@ export function DialogRTLDemo() {
             </label>
           </DialogBody>
           <DialogFooter>
-            <DialogClose className="rounded-lg border border-[var(--border)] px-4 py-2 text-sm">
+            <Button variant="secondary" onClick={() => setOpen(false)}>
               إلغاء
-            </DialogClose>
-            <DialogClose className="rounded-lg bg-[var(--accent)] px-4 py-2 text-sm text-white">
+            </Button>
+            <Button variant="primary" onClick={() => setOpen(false)}>
               حفظ
-            </DialogClose>
+            </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
@@ -502,7 +484,9 @@ export function DialogRTLDemo() {
   );
 }
 
-export const dialogRTLCode = `import {
+export const dialogRTLCode = `import { useState } from "react";
+import {
+  Button,
   Dialog,
   DialogTrigger,
   DialogContent,
@@ -511,17 +495,15 @@ export const dialogRTLCode = `import {
   DialogDescription,
   DialogBody,
   DialogFooter,
-  DialogClose,
 } from "@accessly-ui/react";
 
 export default function Example() {
+  const [open, setOpen] = useState(false);
   return (
     <div dir="rtl">
-      <Dialog>
+      <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger>
-          <button type="button" className="rounded-lg border border-border bg-surface-raised px-4 py-2 text-sm">
-            فتح الحوار
-          </button>
+          <Button variant="secondary">فتح الحوار</Button>
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
@@ -535,8 +517,8 @@ export default function Example() {
             </label>
           </DialogBody>
           <DialogFooter>
-            <DialogClose className="rounded-lg border border-border px-4 py-2 text-sm">إلغاء</DialogClose>
-            <DialogClose className="rounded-lg bg-accent px-4 py-2 text-sm text-white">حفظ</DialogClose>
+            <Button variant="secondary" onClick={() => setOpen(false)}>إلغاء</Button>
+            <Button variant="primary" onClick={() => setOpen(false)}>حفظ</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

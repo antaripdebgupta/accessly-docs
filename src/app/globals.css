@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @import "@accessly-ui/tailwind-preset/theme.css";
 @import "../styles/tokens.css";
+@import "lenis/dist/lenis.css";
 @source "../../node_modules/@accessly-ui/react/dist/**/*.js";
 
 @theme inline {
@@ -37,8 +38,141 @@
   animation: heroDialogFloat 6s ease-in-out infinite;
 }
 
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.reveal {
+  animation: fadeUp 500ms ease-out backwards;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .hero-dialog-anim {
     animation: none !important;
+  }
+  .reveal {
+    animation: none !important;
+  }
+}
+
+/* Scroll behavior: removed from html so route changes jump instantly to top.
+   Smooth scrolling for in-page anchors (ToC) is handled via JS scrollIntoView. */
+
+article :is(h2, h3)[id] {
+  scroll-margin-top: calc(var(--header-h) + 1.5rem);
+}
+
+@keyframes pageIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.page-enter {
+  animation: pageIn 180ms ease-out;
+}
+
+@keyframes drawerIn {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.drawer-enter {
+  animation: drawerIn 220ms ease-out !important;
+}
+
+/* TableOfContents fade transition */
+.toc-fade-enter {
+  transition: opacity 180ms ease-out;
+}
+
+/* Code block highlight fade-in */
+.code-highlight-fade {
+  transition: opacity 150ms ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-enter {
+    animation: none;
+  }
+  .drawer-enter {
+    animation: none !important;
+  }
+  .toc-fade-enter {
+    transition: none;
+  }
+  .code-highlight-fade {
+    transition: none;
+  }
+}
+
+.shiki,
+.shiki span {
+  color: var(--shiki-light);
+  background: transparent !important;
+}
+
+.dark .shiki,
+.dark .shiki span {
+  color: var(--shiki-dark);
+}
+
+.shiki {
+  margin: 0;
+  padding: 0;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+/* ---- Global thin scrollbar (default grey look) ---- */
+/* Chromium / Safari / Edge: WebKit pseudo-elements (removes arrow buttons) */
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+*::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
+}
+*::-webkit-scrollbar-track,
+*::-webkit-scrollbar-corner {
+  background: transparent;
+}
+*::-webkit-scrollbar-thumb {
+  background-color: #c1c1c1; /* browser-default light thumb */
+  border: 2px solid transparent; /* leaves a 6px visible pill */
+  background-clip: padding-box;
+  border-radius: 9999px;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background-color: #a8a8a8;
+}
+.dark *::-webkit-scrollbar-thumb {
+  background-color: #6b6b6b;
+} /* browser-default dark thumb */
+.dark *::-webkit-scrollbar-thumb:hover {
+  background-color: #8a8a8a;
+}
+
+/* Firefox only (no ::-webkit-scrollbar support): thin, native default colours */
+@supports not selector(::-webkit-scrollbar) {
+  * {
+    scrollbar-width: thin;
   }
 }

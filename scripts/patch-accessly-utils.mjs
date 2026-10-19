@@ -1,11 +1,32 @@
 import fs from "node:fs";
 import path from "node:path";
 
-const utilsDist = path.resolve("node_modules/@accessly-ui/utils/dist");
+function findFiles(dir, fileName, results = []) {
+  if (!fs.existsSync(dir)) return results;
+  try {
+    const entries = fs.readdirSync(dir, { withFileTypes: true });
+    for (const entry of entries) {
+      const fullPath = path.join(dir, entry.name);
+      if (entry.isDirectory()) {
+        findFiles(fullPath, fileName, results);
+      } else if (entry.name === fileName) {
+        results.push(fullPath);
+      }
+    }
+  } catch {
+    // Ignore any read permission / dead symlink errors
+  }
+  return results;
+}
 
-if (fs.existsSync(utilsDist)) {
-  const dirFile = path.join(utilsDist, "use-direction.js");
-  if (fs.existsSync(dirFile)) {
+const searchDirs = [
+  path.resolve("node_modules/@accessly-ui"),
+  path.resolve("node_modules/.pnpm"),
+];
+
+for (const searchDir of searchDirs) {
+  const dirFiles = findFiles(searchDir, "use-direction.js");
+  for (const dirFile of dirFiles) {
     let content = fs.readFileSync(dirFile, "utf8");
     if (!content.includes('typeof document !== "undefined"')) {
       content = content.replace(
@@ -13,12 +34,12 @@ if (fs.existsSync(utilsDist)) {
         `const [dir, setDir] = useState(() => (typeof document !== "undefined" && document.documentElement?.dir === "rtl" ? "rtl" : "ltr"));`
       );
       fs.writeFileSync(dirFile, content);
-      console.log("Patched use-direction.js for SSR support.");
+      console.log(`Patched ${dirFile} for SSR support.`);
     }
   }
 
-  const motionFile = path.join(utilsDist, "use-reduced-motion.js");
-  if (fs.existsSync(motionFile)) {
+  const motionFiles = findFiles(searchDir, "use-reduced-motion.js");
+  for (const motionFile of motionFiles) {
     let content = fs.readFileSync(motionFile, "utf8");
     if (!content.includes('typeof window !== "undefined"')) {
       content = content.replace(
@@ -26,21 +47,19 @@ if (fs.existsSync(utilsDist)) {
         `const [reduced, setReduced] = useState(() => (typeof window !== "undefined" && window.matchMedia ? window.matchMedia("(prefers-reduced-motion: reduce)").matches : false));`
       );
       fs.writeFileSync(motionFile, content);
-      console.log("Patched use-reduced-motion.js for SSR support.");
+      console.log(`Patched ${motionFile} for SSR support.`);
     }
   }
-}
 
-const primitivesDist = path.resolve("node_modules/@accessly-ui/primitives/dist");
-if (fs.existsSync(primitivesDist)) {
-  const indexFile = path.join(primitivesDist, "index.js");
-  if (fs.existsSync(indexFile)) {
+  const primitivesIndexFiles = findFiles(searchDir, "index.js").filter((f) =>
+    f.endsWith(path.join("primitives", "dist", "index.js"))
+  );
+  for (const indexFile of primitivesIndexFiles) {
     let content = fs.readFileSync(indexFile, "utf8");
     if (!content.includes("/index.js")) {
       content = content.replace(/from '\.\/([^']+)'/g, "from './$1/index.js'");
       fs.writeFileSync(indexFile, content);
-      console.log("Patched primitives index.js for ESM resolution.");
+      console.log(`Patched ${indexFile} for ESM resolution.`);
     }
   }
 }
-

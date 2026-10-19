@@ -10,7 +10,7 @@ import {
   CommandItem,
   CommandEmpty,
 } from "@accessly-ui/react";
-import { staticSearchIndex, type SearchEntry } from "@/lib/search-index";
+import { staticSearchIndex, score, type SearchEntry } from "@/lib/search-index";
 
 interface SearchDialogProps {
   open: boolean;
@@ -18,20 +18,6 @@ interface SearchDialogProps {
 }
 
 const QUICK_LINKS_LIMIT = 6;
-
-function matches(entry: SearchEntry, query: string): boolean {
-  const q = query.trim().toLowerCase();
-  if (!q) return false;
-  const haystack = [
-    entry.title,
-    entry.description,
-    entry.category,
-    ...(entry.keywords ?? []),
-  ]
-    .join(" ")
-    .toLowerCase();
-  return haystack.includes(q);
-}
 
 export function SearchDialog({ open, onOpenChange }: SearchDialogProps) {
   const router = useRouter();
@@ -48,7 +34,11 @@ export function SearchDialog({ open, onOpenChange }: SearchDialogProps) {
     if (!query.trim()) {
       return staticSearchIndex.slice(0, QUICK_LINKS_LIMIT);
     }
-    return staticSearchIndex.filter((entry) => matches(entry, query));
+    return staticSearchIndex
+      .map((entry) => ({ entry, s: score(entry, query) }))
+      .filter((r) => r.s > 0)
+      .sort((a, b) => b.s - a.s)
+      .map((r) => r.entry);
   }, [query]);
 
   const grouped = useMemo(() => {
@@ -67,6 +57,7 @@ export function SearchDialog({ open, onOpenChange }: SearchDialogProps) {
       inputValue={query}
       onInputValueChange={setQuery}
       hotkey="k"
+      className="rounded-2xl shadow-2xl"
     >
       <CommandInput placeholder="Search documentation..." />
       <CommandList>
@@ -78,7 +69,7 @@ export function SearchDialog({ open, onOpenChange }: SearchDialogProps) {
             {items.map((item) => (
               <CommandItem
                 key={item.id}
-                value={[item.title, item.description, ...(item.keywords ?? [])].join(" ")}
+                value={item.title}
                 onSelect={() => {
                   router.push(item.url);
                   onOpenChange(false);

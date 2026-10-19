@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { FileText, Settings, User, Calculator, Calendar, Smile } from "lucide-react";
 import {
+  Button,
   CommandPalette,
   CommandInput,
   CommandList,
@@ -14,30 +15,14 @@ import {
 } from "@accessly-ui/react";
 import { useAsyncSearch } from "@accessly-ui/primitives";
 
-function OpenButton({
-  onClick,
-  children = "Open (or press ⌘K / Ctrl+K)",
-}: {
-  onClick: () => void;
-  children?: React.ReactNode;
-}) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className="rounded-lg border border-[var(--border)] bg-[var(--surface-raised)] px-4 py-2 text-sm font-medium text-[var(--text)] transition-colors hover:border-[var(--accent)]"
-    >
-      {children}
-    </button>
-  );
-}
-
 export function CommandPaletteDefaultDemo() {
   const [open, setOpen] = useState(false);
 
   return (
     <div className="flex flex-col items-center">
-      <OpenButton onClick={() => setOpen(true)} />
+      <Button variant="secondary" onClick={() => setOpen(true)}>
+        Open (or press ⌘K / Ctrl+K)
+      </Button>
       <CommandPalette open={open} onOpenChange={setOpen}>
         <CommandInput />
         <CommandList>
@@ -73,6 +58,7 @@ export function CommandPaletteDefaultDemo() {
 
 export const commandPaletteDefaultCode = `import { useState } from "react";
 import {
+  Button,
   CommandPalette,
   CommandInput,
   CommandList,
@@ -87,13 +73,9 @@ export default function Example() {
 
   return (
     <>
-      <button
-        type="button"
-        onClick={() => setOpen(true)}
-        className="rounded-lg border border-border bg-surface-raised px-4 py-2 text-sm"
-      >
+      <Button variant="secondary" onClick={() => setOpen(true)}>
         Open (or press ⌘K / Ctrl+K)
-      </button>
+      </Button>
       <CommandPalette open={open} onOpenChange={setOpen}>
         <CommandInput />
         <CommandList>
@@ -132,7 +114,9 @@ export function CommandPaletteGroupsDemo() {
 
   return (
     <div className="flex flex-col items-center">
-      <OpenButton onClick={() => setOpen(true)}>Open grouped palette</OpenButton>
+      <Button variant="secondary" onClick={() => setOpen(true)}>
+        Open grouped palette
+      </Button>
       <CommandPalette open={open} onOpenChange={setOpen}>
         <CommandInput />
         <CommandList>
@@ -177,6 +161,7 @@ export function CommandPaletteGroupsDemo() {
 
 export const commandPaletteGroupsCode = `import { useState } from "react";
 import {
+  Button,
   CommandPalette,
   CommandInput,
   CommandList,
@@ -191,13 +176,9 @@ export default function Example() {
 
   return (
     <>
-      <button
-        type="button"
-        onClick={() => setOpen(true)}
-        className="rounded-lg border border-border bg-surface-raised px-4 py-2 text-sm"
-      >
+      <Button variant="secondary" onClick={() => setOpen(true)}>
         Open grouped palette
-      </button>
+      </Button>
       <CommandPalette open={open} onOpenChange={setOpen}>
         <CommandInput />
         <CommandList>
@@ -270,7 +251,9 @@ export function CommandPaletteAsyncSearchDemo() {
 
   return (
     <div className="flex flex-col items-center">
-      <OpenButton onClick={() => setOpen(true)}>Open async search palette</OpenButton>
+      <Button variant="secondary" onClick={() => setOpen(true)}>
+        Open async search palette
+      </Button>
       <p className="mt-2 max-w-sm text-center text-xs text-[var(--text-muted)]">
         Try typing quickly (e.g. &quot;a&quot; then immediately &quot;ap&quot;) — shorter
         queries are deliberately made to resolve slower here, on purpose, to demonstrate
@@ -305,6 +288,7 @@ export function CommandPaletteAsyncSearchDemo() {
 
 export const commandPaletteAsyncSearchCode = `import { useState } from "react";
 import {
+  Button,
   CommandPalette,
   CommandInput,
   CommandList,
@@ -345,13 +329,9 @@ export default function Example() {
 
   return (
     <>
-      <button
-        type="button"
-        onClick={() => setOpen(true)}
-        className="rounded-lg border border-border bg-surface-raised px-4 py-2 text-sm"
-      >
+      <Button variant="secondary" onClick={() => setOpen(true)}>
         Open async search palette
-      </button>
+      </Button>
       <CommandPalette
         open={open}
         onOpenChange={setOpen}
@@ -383,7 +363,9 @@ export function CommandPaletteRTLDemo() {
 
   return (
     <div dir="rtl" className="flex flex-col items-center">
-      <OpenButton onClick={() => setOpen(true)}>فتح لوحة الأوامر</OpenButton>
+      <Button variant="secondary" onClick={() => setOpen(true)}>
+        فتح لوحة الأوامر
+      </Button>
       <CommandPalette open={open} onOpenChange={setOpen}>
         <CommandInput placeholder="ابحث عن أمر..." />
         <CommandList>
@@ -410,6 +392,7 @@ export function CommandPaletteRTLDemo() {
 
 export const commandPaletteRTLCode = `import { useState } from "react";
 import {
+  Button,
   CommandPalette,
   CommandInput,
   CommandList,
@@ -423,13 +406,9 @@ export default function Example() {
 
   return (
     <div dir="rtl">
-      <button
-        type="button"
-        onClick={() => setOpen(true)}
-        className="rounded-lg border border-border bg-surface-raised px-4 py-2 text-sm"
-      >
+      <Button variant="secondary" onClick={() => setOpen(true)}>
         فتح لوحة الأوامر
-      </button>
+      </Button>
       <CommandPalette open={open} onOpenChange={setOpen}>
         <CommandInput placeholder="ابحث عن أمر..." />
         <CommandList>

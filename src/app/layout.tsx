@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Source_Serif_4 } from "next/font/google";
 import { getThemeScript } from "@/lib/theme-script";
 import { ThemeProvider } from "@/components/site/ThemeProvider";
+import { SmoothScroll } from "@/components/site/SmoothScroll";
 import "./globals.css";
 
 const geist = Geist({
@@ -37,6 +38,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html
       lang="en"
       suppressHydrationWarning
+
       className={`${geist.variable} ${geistMono.variable} ${sourceSerif.variable}`}
     >
       <head>
@@ -47,7 +49,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body className="flex min-h-dvh flex-col bg-[var(--canvas)] font-sans text-[var(--text)] antialiased">
-        <ThemeProvider>{children}</ThemeProvider>
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[60] focus:rounded-lg focus:bg-[var(--surface)] focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-[var(--text)] focus:ring-2 focus:ring-[var(--accent)] focus:outline-hidden"
+        >
+          Skip to main content
+        </a>
+        <ThemeProvider>
+          <SmoothScroll>{children}</SmoothScroll>
+        </ThemeProvider>
       </body>
     </html>
   );

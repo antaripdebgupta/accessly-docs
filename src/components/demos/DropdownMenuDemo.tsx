@@ -1,6 +1,6 @@
 "use client";
 
-import { forwardRef, useState, type ButtonHTMLAttributes } from "react";
+import { useState } from "react";
 import {
   User,
   Settings,
@@ -19,6 +19,7 @@ import {
   MoreHorizontal,
 } from "lucide-react";
 import {
+  Button,
   DropdownMenu,
   DropdownMenuTrigger,
   DropdownMenuContent,
@@ -35,21 +36,6 @@ import {
   DropdownMenuSubContent,
 } from "@accessly-ui/react";
 
-const TriggerButton = forwardRef<
-  HTMLButtonElement,
-  ButtonHTMLAttributes<HTMLButtonElement>
->(({ children = "Open menu", className, ...props }, ref) => (
-  <button
-    ref={ref}
-    type="button"
-    className={`rounded-lg border border-[var(--border)] bg-[var(--surface-raised)] px-4 py-2 text-sm font-medium text-[var(--text)] transition-colors hover:border-[var(--accent)] ${className || ""}`.trim()}
-    {...props}
-  >
-    {children}
-  </button>
-));
-TriggerButton.displayName = "TriggerButton";
-
 function UserAvatar({ initials }: { initials: string }) {
   return (
     <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[var(--accent)] text-xs font-semibold text-white">
@@ -62,7 +48,7 @@ export function DropdownMenuBasicDemo() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <TriggerButton />
+        <Button variant="secondary">Open menu</Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuItem onSelect={() => console.log("Profile")}>
@@ -80,6 +66,7 @@ export function DropdownMenuBasicDemo() {
 }
 
 export const dropdownMenuBasicCode = `import {
+  Button,
   DropdownMenu,
   DropdownMenuTrigger,
   DropdownMenuContent,
@@ -91,9 +78,7 @@ export default function Example() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <button type="button" className="rounded-lg border border-border px-4 py-2 text-sm">
-          Open menu
-        </button>
+        <Button variant="secondary">Open menu</Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuItem>Profile</DropdownMenuItem>
@@ -110,7 +95,7 @@ export function DropdownMenuSubmenuDemo() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <TriggerButton />
+        <Button variant="secondary">Open menu</Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuItem>Profile</DropdownMenuItem>
@@ -134,6 +119,7 @@ export function DropdownMenuSubmenuDemo() {
 }
 
 export const dropdownMenuSubmenuCode = `import {
+  Button,
   DropdownMenu,
   DropdownMenuTrigger,
   DropdownMenuContent,
@@ -149,9 +135,7 @@ export default function Example() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <button type="button" className="rounded-lg border border-border px-4 py-2 text-sm">
-          Open menu
-        </button>
+        <Button variant="secondary">Open menu</Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuItem>Profile</DropdownMenuItem>
@@ -174,7 +158,7 @@ export function DropdownMenuShortcutsDemo() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <TriggerButton />
+        <Button variant="secondary">Open menu</Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuItem textValue="Profile">
@@ -200,6 +184,7 @@ export function DropdownMenuShortcutsDemo() {
 }
 
 export const dropdownMenuShortcutsCode = `import {
+  Button,
   DropdownMenu,
   DropdownMenuTrigger,
   DropdownMenuContent,
@@ -212,9 +197,7 @@ export default function Example() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <button type="button" className="rounded-lg border border-border px-4 py-2 text-sm">
-          Open menu
-        </button>
+        <Button variant="secondary">Open menu</Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuItem textValue="Profile">
@@ -243,7 +226,7 @@ export function DropdownMenuIconsDemo() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <TriggerButton />
+        <Button variant="secondary">Open menu</Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuItem icon={<User size={14} />}>Profile</DropdownMenuItem>
@@ -260,6 +243,7 @@ export function DropdownMenuIconsDemo() {
 }
 
 export const dropdownMenuIconsCode = `import {
+  Button,
   DropdownMenu,
   DropdownMenuTrigger,
   DropdownMenuContent,
@@ -272,9 +256,7 @@ export default function Example() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <button type="button" className="rounded-lg border border-border px-4 py-2 text-sm">
-          Open menu
-        </button>
+        <Button variant="secondary">Open menu</Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuItem icon={<User size={14} />}>Profile</DropdownMenuItem>
@@ -296,7 +278,7 @@ export function DropdownMenuCheckboxesDemo() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <TriggerButton>View</TriggerButton>
+        <Button variant="secondary">View</Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuLabel>Appearance</DropdownMenuLabel>
@@ -323,6 +305,7 @@ export function DropdownMenuCheckboxesDemo() {
 
 export const dropdownMenuCheckboxesCode = `import { useState } from "react";
 import {
+  Button,
   DropdownMenu,
   DropdownMenuTrigger,
   DropdownMenuContent,
@@ -339,9 +322,7 @@ export default function Example() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <button type="button" className="rounded-lg border border-border px-4 py-2 text-sm">
-          View
-        </button>
+        <Button variant="secondary">View</Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuLabel>Appearance</DropdownMenuLabel>
@@ -367,7 +348,7 @@ export function DropdownMenuCheckboxesIconsDemo() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <TriggerButton>Integrations</TriggerButton>
+        <Button variant="secondary">Integrations</Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuCheckboxItem
@@ -391,6 +372,7 @@ export function DropdownMenuCheckboxesIconsDemo() {
 
 export const dropdownMenuCheckboxesIconsCode = `import { useState } from "react";
 import {
+  Button,
   DropdownMenu,
   DropdownMenuTrigger,
   DropdownMenuContent,
@@ -405,9 +387,7 @@ export default function Example() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <button type="button" className="rounded-lg border border-border px-4 py-2 text-sm">
-          Integrations
-        </button>
+        <Button variant="secondary">Integrations</Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuCheckboxItem
@@ -435,7 +415,7 @@ export function DropdownMenuRadioGroupDemo() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <TriggerButton>Panel position</TriggerButton>
+        <Button variant="secondary">Panel position</Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuLabel>Panel Position</DropdownMenuLabel>
@@ -452,6 +432,7 @@ export function DropdownMenuRadioGroupDemo() {
 
 export const dropdownMenuRadioGroupCode = `import { useState } from "react";
 import {
+  Button,
   DropdownMenu,
   DropdownMenuTrigger,
   DropdownMenuContent,
@@ -467,9 +448,7 @@ export default function Example() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <button type="button" className="rounded-lg border border-border px-4 py-2 text-sm">
-          Panel position
-        </button>
+        <Button variant="secondary">Panel position</Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuLabel>Panel Position</DropdownMenuLabel>
@@ -490,7 +469,7 @@ export function DropdownMenuRadioIconsDemo() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <TriggerButton>Theme</TriggerButton>
+        <Button variant="secondary">Theme</Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuRadioGroup value={theme} onValueChange={setTheme}>
@@ -511,6 +490,7 @@ export function DropdownMenuRadioIconsDemo() {
 
 export const dropdownMenuRadioIconsCode = `import { useState } from "react";
 import {
+  Button,
   DropdownMenu,
   DropdownMenuTrigger,
   DropdownMenuContent,
@@ -525,9 +505,7 @@ export default function Example() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <button type="button" className="rounded-lg border border-border px-4 py-2 text-sm">
-          Theme
-        </button>
+        <Button variant="secondary">Theme</Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuRadioGroup value={theme} onValueChange={setTheme}>
@@ -550,9 +528,9 @@ export function DropdownMenuDestructiveDemo() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <TriggerButton aria-label="More options">
+        <Button variant="secondary" aria-label="More options">
           <MoreHorizontal size={16} />
-        </TriggerButton>
+        </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuItem icon={<User size={14} />}>Edit profile</DropdownMenuItem>
@@ -567,6 +545,7 @@ export function DropdownMenuDestructiveDemo() {
 }
 
 export const dropdownMenuDestructiveCode = `import {
+  Button,
   DropdownMenu,
   DropdownMenuTrigger,
   DropdownMenuContent,
@@ -579,9 +558,9 @@ export default function Example() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <button type="button" className="rounded-lg border border-border px-4 py-2 text-sm" aria-label="More options">
+        <Button variant="secondary" aria-label="More options">
           <MoreHorizontal size={16} />
-        </button>
+        </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuItem icon={<User size={14} />}>Edit profile</DropdownMenuItem>
@@ -672,7 +651,7 @@ export function DropdownMenuComplexDemo() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <TriggerButton>Complex Menu</TriggerButton>
+        <Button variant="secondary">Complex Menu</Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuLabel>File</DropdownMenuLabel>
@@ -736,6 +715,7 @@ export function DropdownMenuComplexDemo() {
 
 export const dropdownMenuComplexCode = `import { useState } from "react";
 import {
+  Button,
   DropdownMenu,
   DropdownMenuTrigger,
   DropdownMenuContent,
@@ -758,9 +738,7 @@ export default function Example() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <button type="button" className="rounded-lg border border-border px-4 py-2 text-sm">
-          Complex Menu
-        </button>
+        <Button variant="secondary">Complex Menu</Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuLabel>File</DropdownMenuLabel>
@@ -803,7 +781,7 @@ export function DropdownMenuRTLDemo() {
     <div dir="rtl">
       <DropdownMenu>
         <DropdownMenuTrigger>
-          <TriggerButton>القائمة</TriggerButton>
+          <Button variant="secondary">القائمة</Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
           <DropdownMenuItem icon={<User size={14} />}>الملف الشخصي</DropdownMenuItem>
@@ -819,6 +797,7 @@ export function DropdownMenuRTLDemo() {
 }
 
 export const dropdownMenuRTLCode = `import {
+  Button,
   DropdownMenu,
   DropdownMenuTrigger,
   DropdownMenuContent,
@@ -832,9 +811,7 @@ export default function Example() {
     <div dir="rtl">
       <DropdownMenu>
         <DropdownMenuTrigger>
-          <button type="button" className="rounded-lg border border-border px-4 py-2 text-sm">
-            القائمة
-          </button>
+          <Button variant="secondary">القائمة</Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
           <DropdownMenuItem icon={<User size={14} />}>الملف الشخصي</DropdownMenuItem>

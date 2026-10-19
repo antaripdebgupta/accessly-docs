@@ -10,6 +10,7 @@ export function InputDefaultDemo() {
   return (
     <div className="w-full max-w-sm">
       <Input
+        aria-label="Standard input"
         placeholder="Standard input placeholder"
         value={val}
         onChange={(v) => setVal(v)}
@@ -26,6 +27,7 @@ export default function Example() {
 
   return (
     <Input
+      aria-label="Standard input"
       placeholder="Standard input placeholder"
       value={value}
       onChange={(v) => setValue(v)}
@@ -39,6 +41,7 @@ export function InputFieldDemo() {
       <Input
         label="Email Address"
         type="email"
+        autoComplete="email"
         description="We will never share your email with third parties."
         placeholder="alex@example.com"
       />
@@ -53,6 +56,7 @@ export default function Example() {
     <Input
       label="Email Address"
       type="email"
+      autoComplete="email"
       description="We will never share your email with third parties."
       placeholder="alex@example.com"
     />
@@ -343,16 +347,29 @@ export function InputFormCompositionDemo() {
     >
       <h2 className="text-lg font-bold text-[var(--text)]">Create Account</h2>
 
-      <Input label="Full Name" required showRequiredIndicator placeholder="Alex Morgan" />
+      <Input
+        label="Full Name"
+        autoComplete="name"
+        required
+        showRequiredIndicator
+        placeholder="Alex Morgan"
+      />
       <Input
         label="Email Address"
         type="email"
+        autoComplete="email"
         required
         showRequiredIndicator
         prefix={<Mail size={16} />}
         placeholder="alex@example.com"
       />
-      <Input label="Password" type="password" required showRequiredIndicator />
+      <Input
+        label="Password"
+        type="password"
+        autoComplete="new-password"
+        required
+        showRequiredIndicator
+      />
 
       <FileInput label="Profile Photo (Optional)" accept="image/*" />
 
@@ -388,16 +405,29 @@ export default function Example() {
       className="flex w-full max-w-md flex-col gap-4 rounded-xl border border-border bg-surface p-6"
     >
       <h2 className="text-lg font-bold">Create Account</h2>
-      <Input label="Full Name" required showRequiredIndicator placeholder="Alex Morgan" />
+      <Input
+        label="Full Name"
+        autoComplete="name"
+        required
+        showRequiredIndicator
+        placeholder="Alex Morgan"
+      />
       <Input
         label="Email Address"
         type="email"
+        autoComplete="email"
         required
         showRequiredIndicator
         prefix={<Mail size={16} />}
         placeholder="alex@example.com"
       />
-      <Input label="Password" type="password" required showRequiredIndicator />
+      <Input
+        label="Password"
+        type="password"
+        autoComplete="new-password"
+        required
+        showRequiredIndicator
+      />
       <FileInput label="Profile Photo (Optional)" accept="image/*" />
       <button type="submit" className="mt-2 w-full rounded-md bg-accent py-2.5 font-medium text-white">
         Register

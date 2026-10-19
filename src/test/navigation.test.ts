@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
-import { gettingStartedNav, componentsNav, allNavSections } from "@/lib/nav-config";
-import { componentRegistry } from "@/lib/component-registry";
+import { gettingStartedNav, componentsNav, allNavSections } from "@/data/navigation";
+import { componentRegistry } from "@/data/components/registry";
 import { demoRegistry } from "@/components/demos";
 
 describe("Navigation Link Integrity", () => {
@@ -15,6 +15,8 @@ describe("Navigation Link Integrity", () => {
     expect(docRoutes).toEqual([
       "/docs/introduction",
       "/docs/installation",
+      "/docs/architecture",
+      "/docs/packages",
       "/docs/theming",
       "/docs/accessibility",
     ]);
@@ -28,6 +30,8 @@ describe("Navigation Link Integrity", () => {
     const knownDocRoutes = new Set([
       "/docs/introduction",
       "/docs/installation",
+      "/docs/architecture",
+      "/docs/packages",
       "/docs/theming",
       "/docs/accessibility",
     ]);

@@ -15,7 +15,7 @@ export function Callout({
 }: CalloutProps) {
   const styles = {
     info: {
-      container: "border-[var(--border-strong)] bg-[var(--surface)] text-[var(--text)]",
+      container: "border-[var(--border)] bg-[var(--surface)] text-[var(--text)]",
       accent: "text-[var(--accent)]",
       defaultTitle: "Note",
     },
@@ -44,10 +44,10 @@ export function Callout({
   return (
     <div
       role="note"
-      className={`my-6 rounded-lg border p-4 text-sm leading-relaxed ${styles.container} ${className}`}
+      className={`my-8 rounded-md border p-4 text-sm leading-relaxed ${styles.container} ${className}`.trim()}
     >
-      <div className="flex items-start gap-3">
-        <span className={`mt-0.5 inline-block text-sm font-semibold ${styles.accent}`}>
+      <div className="flex flex-col gap-1 sm:flex-row sm:gap-3">
+        <span className={`inline-block text-sm font-semibold ${styles.accent}`}>
           {title || styles.defaultTitle}
         </span>
         <div className="flex-1">{children}</div>

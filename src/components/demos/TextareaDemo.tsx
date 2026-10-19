@@ -9,6 +9,7 @@ export function TextareaDefaultDemo() {
   return (
     <div className="w-full max-w-sm">
       <Textarea
+        aria-label="Response"
         placeholder="Type your response..."
         value={val}
         onChange={(v) => setVal(v)}
@@ -25,6 +26,7 @@ export default function Example() {
 
   return (
     <Textarea
+      aria-label="Response"
       placeholder="Type your response..."
       value={value}
       onChange={(v) => setValue(v)}

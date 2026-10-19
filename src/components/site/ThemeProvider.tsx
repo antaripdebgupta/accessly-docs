@@ -11,6 +11,8 @@ import {
 import { useSyncExternalStore } from "react";
 import type { ReactNode } from "react";
 
+import { SunIcon, MoonIcon, MonitorIcon, CheckIcon } from "@/components/icons";
+
 const emptySubscribe = () => () => {};
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
@@ -48,38 +50,9 @@ export function ThemeToggle({ className = "" }: ThemeToggleProps) {
         <button
           type="button"
           aria-label={`Current theme: ${mode}. Click to change theme`}
-          className={`inline-flex h-9 w-9 items-center justify-center rounded-lg border border-[var(--border)] bg-[var(--surface)] text-[var(--text-muted)] transition-colors hover:border-[var(--border-strong)] hover:text-[var(--text)] focus:ring-2 focus:ring-[var(--accent)] focus:outline-hidden ${className}`}
+          className={`inline-flex h-9 w-9 items-center justify-center rounded-lg border border-[var(--border)] bg-[var(--surface)] text-[var(--text-muted)] transition-colors hover:border-[var(--border-strong)] hover:text-[var(--text)] focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:outline-hidden ${className}`}
         >
-          {isDark ? (
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
-            >
-              <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
-            </svg>
-          ) : (
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
-            >
-              <circle cx="12" cy="12" r="4" />
-              <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
-            </svg>
-          )}
+          {isDark ? <MoonIcon size={16} /> : <SunIcon size={16} />}
         </button>
       </DropdownMenuTrigger>
 
@@ -97,37 +70,10 @@ export function ThemeToggle({ className = "" }: ThemeToggleProps) {
           }`}
         >
           <span className="flex items-center gap-2">
-            <svg
-              width="14"
-              height="14"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
-            >
-              <circle cx="12" cy="12" r="4" />
-              <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
-            </svg>
+            <SunIcon size={14} />
             Light
           </span>
-          {mode === "light" && (
-            <svg
-              width="14"
-              height="14"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
-            >
-              <polyline points="20 6 9 17 4 12" />
-            </svg>
-          )}
+          {mode === "light" && <CheckIcon size={14} strokeWidth={2.5} />}
         </DropdownMenuItem>
 
         <DropdownMenuItem
@@ -139,36 +85,10 @@ export function ThemeToggle({ className = "" }: ThemeToggleProps) {
           }`}
         >
           <span className="flex items-center gap-2">
-            <svg
-              width="14"
-              height="14"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
-            >
-              <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
-            </svg>
+            <MoonIcon size={14} />
             Dark
           </span>
-          {mode === "dark" && (
-            <svg
-              width="14"
-              height="14"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
-            >
-              <polyline points="20 6 9 17 4 12" />
-            </svg>
-          )}
+          {mode === "dark" && <CheckIcon size={14} strokeWidth={2.5} />}
         </DropdownMenuItem>
 
         <DropdownMenuItem
@@ -180,38 +100,10 @@ export function ThemeToggle({ className = "" }: ThemeToggleProps) {
           }`}
         >
           <span className="flex items-center gap-2">
-            <svg
-              width="14"
-              height="14"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
-            >
-              <rect width="20" height="14" x="2" y="3" rx="2" />
-              <line x1="8" x2="16" y1="21" y2="21" />
-              <line x1="12" x2="12" y1="17" y2="21" />
-            </svg>
+            <MonitorIcon size={14} />
             System
           </span>
-          {mode === "system" && (
-            <svg
-              width="14"
-              height="14"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
-            >
-              <polyline points="20 6 9 17 4 12" />
-            </svg>
-          )}
+          {mode === "system" && <CheckIcon size={14} strokeWidth={2.5} />}
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

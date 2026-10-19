@@ -2,93 +2,80 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import {
-  Accordion,
-  AccordionItem,
-  AccordionTrigger,
-  AccordionContent,
-} from "@accessly-ui/react";
-import { gettingStartedNav, componentsNav, type NavSection } from "@/lib/nav-config";
+import { gettingStartedNav, componentsNav, type NavSection } from "@/data/navigation";
 
-function SidebarNav({
-  sections,
-  onNavigate,
-}: {
+export interface SidebarNavProps {
   sections: NavSection[];
   onNavigate?: () => void;
-}) {
+  size?: "default" | "touch";
+}
+
+function SidebarNav({ sections, onNavigate, size = "default" }: SidebarNavProps) {
   const pathname = usePathname();
-  const allSectionTitles = sections.map((section) => section.title);
+  const isTouch = size === "touch";
 
   return (
-    <Accordion type="multiple" defaultValue={allSectionTitles} className="space-y-4">
-      {sections.map((section) =>
-        section.href ? (
-          <div key={section.title}>
-            <Link
-              href={section.href}
-              className="block py-1 text-sm font-semibold tracking-wide text-[var(--text-faint)] uppercase hover:text-[var(--text)]"
-            >
-              {section.title}
-            </Link>
-            <ul className="mt-1 space-y-0.5 border-l border-[var(--border-subtle)] pl-3">
-              {section.items.map((item) => {
-                const isActive = pathname === item.href;
-                return (
-                  <li key={item.href}>
-                    <Link
-                      href={item.href}
-                      onClick={onNavigate}
-                      aria-current={isActive ? "page" : undefined}
-                      className={`block rounded-md px-2 py-1.5 text-sm transition-colors ${
-                        isActive
-                          ? "bg-[var(--accent-subtle)] font-medium text-[var(--accent)]"
-                          : "text-[var(--text-muted)] hover:bg-[var(--surface-raised)] hover:text-[var(--text)]"
-                      }`}
-                    >
-                      {item.title}
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
+    <div className={isTouch ? "space-y-6" : "flex min-h-0 flex-1 flex-col space-y-4"}>
+      {sections.map((section) => (
+        <div
+          key={section.title}
+          className={isTouch ? "" : "flex min-h-0 flex-1 flex-col"}
+        >
+          <div className="shrink-0">
+            {section.href ? (
+              <Link
+                href={section.href}
+                onClick={onNavigate}
+                aria-current={pathname === section.href ? "page" : undefined}
+                className={`block rounded-sm py-0.5 text-xs font-semibold tracking-wider uppercase transition-colors hover:text-[var(--text)] focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:outline-hidden ${
+                  pathname === section.href
+                    ? "text-[var(--accent)]"
+                    : "text-[var(--text-faint)]"
+                }`}
+              >
+                {section.title}
+              </Link>
+            ) : (
+              <p className="py-0.5 text-xs font-semibold tracking-wider text-[var(--text-faint)] uppercase">
+                {section.title}
+              </p>
+            )}
           </div>
-        ) : (
-          <AccordionItem
-            key={section.title}
-            value={section.title}
-            className="border-none"
+          <ul
+            data-lenis-prevent
+            className={
+              isTouch
+                ? "mt-1 space-y-1"
+                : "mt-1 min-h-0 flex-1 space-y-0.5 overflow-y-auto overscroll-contain"
+            }
           >
-            <AccordionTrigger className="flex w-full items-center justify-between py-1 text-sm font-semibold tracking-wide text-[var(--text-faint)] uppercase hover:text-[var(--text)]">
-              {section.title}
-            </AccordionTrigger>
-            <AccordionContent className="pt-1">
-              <ul className="space-y-0.5 border-l border-[var(--border-subtle)] pl-3">
-                {section.items.map((item) => {
-                  const isActive = pathname === item.href;
-                  return (
-                    <li key={item.href}>
-                      <Link
-                        href={item.href}
-                        onClick={onNavigate}
-                        aria-current={isActive ? "page" : undefined}
-                        className={`block rounded-md px-2 py-1.5 text-sm transition-colors ${
-                          isActive
-                            ? "bg-[var(--accent-subtle)] font-medium text-[var(--accent)]"
-                            : "text-[var(--text-muted)] hover:bg-[var(--surface-raised)] hover:text-[var(--text)]"
-                        }`}
-                      >
-                        {item.title}
-                      </Link>
-                    </li>
-                  );
-                })}
-              </ul>
-            </AccordionContent>
-          </AccordionItem>
-        )
-      )}
-    </Accordion>
+            {section.items.map((item) => {
+              const isActive = pathname === item.href;
+              return (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    onClick={onNavigate}
+                    aria-current={isActive ? "page" : undefined}
+                    className={`rounded-lg transition-colors duration-150 focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:outline-hidden ${
+                      isTouch
+                        ? "flex min-h-10 items-center px-3 py-2.5 text-[15px]"
+                        : "block px-3 py-1.5 text-sm"
+                    } ${
+                      isActive
+                        ? "bg-[var(--accent-subtle)] font-medium text-[var(--accent)]"
+                        : "text-[var(--text-muted)] hover:bg-[var(--surface-raised)] hover:text-[var(--text)]"
+                    }`}
+                  >
+                    {item.title}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      ))}
+    </div>
   );
 }
 
@@ -97,10 +84,10 @@ export function Sidebar() {
   const sections = pathname.startsWith("/components") ? componentsNav : gettingStartedNav;
 
   return (
-    <aside className="hidden w-64 shrink-0 border-r border-[var(--border)] lg:block">
+    <aside className="sticky top-[var(--header-h)] hidden h-[calc(100dvh-var(--header-h))] w-64 shrink-0 flex-col self-start border-r border-[var(--border)] lg:flex">
       <nav
         aria-label="Section navigation"
-        className="sticky top-[calc(4rem+45px)] h-[calc(100dvh-4rem-45px)] overflow-y-auto px-4 py-6"
+        className="flex min-h-0 flex-1 flex-col py-8 pr-4 pl-0"
       >
         <SidebarNav sections={sections} />
       </nav>

@@ -1,6 +1,7 @@
 /* Accessly UI Docs — Design Tokens
    Cool zinc base + focus-ring blue accent from accessibility inspection tools */
 :root {
+  --header-h: 4rem;
   --canvas: #f7f7f8;
   --surface: #ffffff;
   --surface-raised: #ededf0;
@@ -12,7 +13,7 @@
   --accent-muted: #93bbfd;
   --text: #18181b;
   --text-muted: #48484d;
-  --text-faint: #64646c;
+  --text-faint: #494950;
 }
 
 .dark {

@@ -25,10 +25,10 @@ export function ComponentPreview({
     <div
       className={`my-8 overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--surface)] shadow-xs ${className}`}
     >
-      <Tabs value={activeTab} onValueChange={setActiveTab}>
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="gap-0!">
         <div className="flex items-center justify-between border-b border-[var(--border)] bg-[var(--surface-raised)] px-4 py-2">
           {title ? (
-            <span className="text-sm font-medium text-[var(--text-muted)]">{title}</span>
+            <span className="font-mono text-xs text-[var(--text-faint)]">{title}</span>
           ) : (
             <span />
           )}
@@ -42,18 +42,17 @@ export function ComponentPreview({
           </TabsList>
         </div>
 
-        <TabsContent value="preview" className="p-6 focus:outline-hidden">
-          <div className="flex min-h-[140px] w-full items-center justify-center overflow-x-auto rounded-lg border border-dashed border-[var(--border)] bg-[var(--canvas)] p-6">
+        <TabsContent
+          value="preview"
+          className="bg-[var(--surface)] p-8 focus:outline-hidden"
+        >
+          <div className="flex min-h-[160px] w-full items-center justify-center overflow-x-auto">
             {children}
           </div>
         </TabsContent>
 
-        <TabsContent value="code" className="p-0 focus:outline-hidden">
-          <CodeBlock
-            code={code}
-            language={language}
-            className="rounded-none border-0 shadow-none"
-          />
+        <TabsContent value="code" className="mt-0! p-0! focus:outline-hidden">
+          <CodeBlock code={code} language={language} flush />
         </TabsContent>
       </Tabs>
     </div>

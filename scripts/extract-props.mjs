@@ -141,9 +141,9 @@ export interface ComponentPropsSection {
 export const componentPropsMap: Record<string, ComponentPropsSection[]> = ${JSON.stringify(result, null, 2)};
 `;
 
-fs.writeFileSync(path.resolve("src/lib/component-props.ts"), outContent);
+fs.writeFileSync(path.resolve("src/data/components/props.ts"), outContent);
 console.log(
-  "Successfully generated src/lib/component-props.ts with",
+  "Successfully generated src/data/components/props.ts with",
   Object.keys(result).length,
   "components."
 );
