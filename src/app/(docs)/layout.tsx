@@ -2,7 +2,7 @@ import { Header } from "@/components/site/Header";
 import { Container } from "@/components/site/Container";
 import { Sidebar } from "@/components/docs/Sidebar";
 import { TableOfContents } from "@/components/docs/TableOfContents";
-import { DocsBreadcrumbs } from "@/components/docs/DocsBreadcrumbs";
+import { DocsJsonLd } from "@/components/docs/DocsJsonLd";
 
 export default function ComponentsLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -15,7 +15,7 @@ export default function ComponentsLayout({ children }: { children: React.ReactNo
           tabIndex={-1}
           className="min-w-0 flex-1 py-8 lg:px-10 lg:py-10"
         >
-          <DocsBreadcrumbs />
+          <DocsJsonLd />
           {children}
         </main>
         <TableOfContents />

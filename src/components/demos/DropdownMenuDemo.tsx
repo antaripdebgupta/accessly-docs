@@ -51,13 +51,9 @@ export function DropdownMenuBasicDemo() {
         <Button variant="secondary">Open menu</Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <DropdownMenuItem onSelect={() => console.log("Profile")}>
-          Profile
-        </DropdownMenuItem>
-        <DropdownMenuItem onSelect={() => console.log("Billing")}>
-          Billing
-        </DropdownMenuItem>
-        <DropdownMenuItem onSelect={() => console.log("Team")}>Team</DropdownMenuItem>
+        <DropdownMenuItem>Profile</DropdownMenuItem>
+        <DropdownMenuItem>Billing</DropdownMenuItem>
+        <DropdownMenuItem>Team</DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem disabled>Invite users (disabled)</DropdownMenuItem>
       </DropdownMenuContent>

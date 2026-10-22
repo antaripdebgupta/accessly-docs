@@ -130,6 +130,12 @@ export function ComponentDocView({
   // Use concise answer-first summary for page lead, fallback to description
   const leadText = meta.summary || meta.description;
 
+  const hasAccessibility = Boolean(
+    (meta.keyboardInteractions && meta.keyboardInteractions.length > 0) ||
+    (meta.wcagCriteria && meta.wcagCriteria.length > 0) ||
+    (meta.commonIssues && meta.commonIssues.length > 0)
+  );
+
   return (
     <DocArticle size="default">
       <PageHeading title={meta.name} description={leadText} />
@@ -144,6 +150,9 @@ export function ComponentDocView({
       </section>
 
       <section className="mt-10 space-y-8">
+        <SectionHeading id="examples" level={2}>
+          Examples
+        </SectionHeading>
         {stories && stories.length > 0
           ? stories.map((story) => {
               const StoryDemo = story.Demo;
@@ -207,73 +216,81 @@ export function ComponentDocView({
         )}
       </section>
 
-      <section className="mt-12">
-        {meta.keyboardInteractions && meta.keyboardInteractions.length > 0 && (
-          <div className="mt-6">
-            <h3
-              id="keyboard-interactions"
-              className="text-base font-semibold text-[var(--text)]"
-            >
-              Keyboard Interactions
-            </h3>
-            <div className="mt-3 overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--surface)]">
-              <div className="overflow-x-auto">
-                <DataTable
-                  data={meta.keyboardInteractions}
-                  columns={keyboardColumns}
-                  getRowId={(_, i) => String(i)}
-                  caption="Keyboard interactions"
-                  className="w-full rounded-none! border-0! text-left text-sm shadow-none! [&>div]:rounded-none! [&>div]:border-0! [&>div]:shadow-none!"
-                >
-                  <DataTableHeader />
-                  <DataTableBody />
-                </DataTable>
+      {hasAccessibility && (
+        <section className="mt-12">
+          <SectionHeading id="accessibility" level={2}>
+            Accessibility
+          </SectionHeading>
+          {meta.keyboardInteractions && meta.keyboardInteractions.length > 0 && (
+            <div className="mt-6">
+              <h3
+                id="keyboard-interactions"
+                className="text-base font-semibold text-[var(--text)]"
+              >
+                Keyboard Interactions
+              </h3>
+              <div className="mt-3 overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--surface)]">
+                <div className="overflow-x-auto">
+                  <DataTable
+                    data={meta.keyboardInteractions}
+                    columns={keyboardColumns}
+                    getRowId={(_, i) => String(i)}
+                    caption="Keyboard interactions"
+                    className="w-full rounded-none! border-0! text-left text-sm shadow-none! [&>div]:rounded-none! [&>div]:border-0! [&>div]:shadow-none!"
+                  >
+                    <DataTableHeader />
+                    <DataTableBody />
+                  </DataTable>
+                </div>
               </div>
             </div>
-          </div>
-        )}
+          )}
 
-        {meta.wcagCriteria && meta.wcagCriteria.length > 0 && (
-          <div className="mt-4">
-            <h3 id="wcag-criteria" className="text-sm font-semibold text-[var(--text)]">
-              WCAG Criteria
-            </h3>
-            <ul className="mt-2 flex flex-wrap gap-2">
-              {meta.wcagCriteria.map((c) => (
-                <li
-                  key={c}
-                  className="rounded-md border border-[var(--border)] bg-[var(--surface)] px-2.5 py-1 font-mono text-xs text-[var(--text-muted)]"
-                >
-                  {c}
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-
-        {meta.commonIssues && meta.commonIssues.length > 0 && (
-          <div className="mt-6">
-            <h3 id="common-issues" className="text-base font-semibold text-[var(--text)]">
-              Common issues
-            </h3>
-            <div className="mt-3 space-y-3">
-              {meta.commonIssues.map((issue) => (
-                <div
-                  key={issue.title}
-                  className="rounded-xl border border-[var(--border)] bg-[var(--surface)] p-4"
-                >
-                  <h4 className="text-sm font-semibold text-[var(--text)]">
-                    {issue.title}
-                  </h4>
-                  <p className="mt-1 text-sm text-[var(--text-muted)]">
-                    {issue.description}
-                  </p>
-                </div>
-              ))}
+          {meta.wcagCriteria && meta.wcagCriteria.length > 0 && (
+            <div className="mt-4">
+              <h3 id="wcag-criteria" className="text-sm font-semibold text-[var(--text)]">
+                WCAG Criteria
+              </h3>
+              <ul className="mt-2 flex flex-wrap gap-2">
+                {meta.wcagCriteria.map((c) => (
+                  <li
+                    key={c}
+                    className="rounded-md border border-[var(--border)] bg-[var(--surface)] px-2.5 py-1 font-mono text-xs text-[var(--text-muted)]"
+                  >
+                    {c}
+                  </li>
+                ))}
+              </ul>
             </div>
-          </div>
-        )}
-      </section>
+          )}
+
+          {meta.commonIssues && meta.commonIssues.length > 0 && (
+            <div className="mt-6">
+              <h3
+                id="common-issues"
+                className="text-base font-semibold text-[var(--text)]"
+              >
+                Common issues
+              </h3>
+              <div className="mt-3 space-y-3">
+                {meta.commonIssues.map((issue) => (
+                  <div
+                    key={issue.title}
+                    className="rounded-xl border border-[var(--border)] bg-[var(--surface)] p-4"
+                  >
+                    <h4 className="text-sm font-semibold text-[var(--text)]">
+                      {issue.title}
+                    </h4>
+                    <p className="mt-1 text-sm text-[var(--text-muted)]">
+                      {issue.description}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </section>
+      )}
 
       <DocPager
         prev={

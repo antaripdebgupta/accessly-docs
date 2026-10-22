@@ -6,7 +6,7 @@ import { toAbsoluteUrl, getSiteUrl } from "@/lib/site-url";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { SITE_NAME } from "@/data/site";
 
-export function DocsBreadcrumbs() {
+export function DocsJsonLd() {
   const pathname = usePathname();
   const route = getRouteByPath(pathname);
 

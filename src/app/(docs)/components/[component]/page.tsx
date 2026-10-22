@@ -4,6 +4,7 @@ import { componentRegistry } from "@/data/components/registry";
 import { componentPropsMap } from "@/data/components/props";
 import { ComponentDocView } from "@/components/docs/ComponentDocView";
 import { routeMetadata } from "@/lib/seo";
+import { componentsNav } from "@/data/navigation";
 
 interface ComponentPageProps {
   params: Promise<{
@@ -45,10 +46,14 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
     notFound();
   }
 
-  const allSlugs = Object.keys(componentRegistry);
-  const currentIndex = allSlugs.indexOf(component);
-  const prevSlug = currentIndex > 0 ? allSlugs[currentIndex - 1] : null;
-  const nextSlug = currentIndex < allSlugs.length - 1 ? allSlugs[currentIndex + 1] : null;
+  // Derive prev/next from the sidebar's alphabetical order (componentsNav)
+  const sidebarSlugs = componentsNav[0].items.map((item) =>
+    item.href.replace("/components/", "")
+  );
+  const currentIndex = sidebarSlugs.indexOf(component);
+  const prevSlug = currentIndex > 0 ? sidebarSlugs[currentIndex - 1] : null;
+  const nextSlug =
+    currentIndex < sidebarSlugs.length - 1 ? sidebarSlugs[currentIndex + 1] : null;
 
   return (
     <ComponentDocView

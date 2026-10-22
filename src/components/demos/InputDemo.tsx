@@ -345,7 +345,9 @@ export function InputFormCompositionDemo() {
       }}
       className="flex w-full max-w-md flex-col gap-4 rounded-xl border border-[var(--border)] bg-[var(--surface)] p-6 shadow-xs"
     >
-      <h2 className="text-lg font-bold text-[var(--text)]">Create Account</h2>
+      <h2 className="text-sm font-medium tracking-[0.08em] text-[var(--muted)] uppercase">
+        Create account
+      </h2>
 
       <Input
         label="Full Name"
@@ -404,7 +406,9 @@ export default function Example() {
       }}
       className="flex w-full max-w-md flex-col gap-4 rounded-xl border border-border bg-surface p-6"
     >
-      <h2 className="text-lg font-bold">Create Account</h2>
+      <h2 className="text-sm font-medium uppercase tracking-[0.08em] text-[var(--muted)]">
+        Create account
+      </h2>
       <Input
         label="Full Name"
         autoComplete="name"

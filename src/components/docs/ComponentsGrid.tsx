@@ -69,7 +69,7 @@ import {
   TreeView,
   TreeItem,
 } from "@accessly-ui/react";
-import { componentRegistry } from "@/data/components/registry";
+import { groupedByCategory, COMPONENT_COUNT } from "@/data/components/registry";
 import { MoveRight } from "lucide-react";
 
 function DialogPreview() {
@@ -362,22 +362,15 @@ const previews: Record<string, ReactNode> = {
 /* ---------- Grid ---------- */
 
 export function ComponentsGrid() {
-  const all = Object.values(componentRegistry);
-
-  const grouped = all.reduce<Record<string, typeof all>>((acc, meta) => {
-    (acc[meta.category] ??= []).push(meta);
-    return acc;
-  }, {});
-
-  const categoryCount = Object.keys(grouped).length;
-  const description = `Explore all ${all.length} accessible React components organized into ${categoryCount} functional categories.`;
+  const categoryCount = Object.keys(groupedByCategory).length;
+  const description = `Explore all ${COMPONENT_COUNT} accessible React components organized into ${categoryCount} functional categories.`;
 
   return (
     <DocArticle size="wide">
       <PageHeading title="All Components" description={description} />
 
       <div className="mt-8 space-y-12">
-        {Object.entries(grouped).map(([category, items]) => (
+        {Object.entries(groupedByCategory).map(([category, items]) => (
           <section key={category}>
             <SectionHeading
               id={category.toLowerCase().replace(/[^a-z0-9]+/g, "-")}

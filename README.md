@@ -34,9 +34,9 @@ Open [http://localhost:3000](http://localhost:3000) to view the site.
 
 ## Environment Variables
 
-| Variable               | Description                                                                                                                                                                                                                    |
-| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `NEXT_PUBLIC_SITE_URL` | Canonical site base URL (for example `https://accessly-ui.com`). Defaults to `http://localhost:3000` in development. In production without this variable, canonical URLs and sitemaps degrade safely without inventing a host. |
+| Variable               | Description                                                                                                                                                                                                                                                                                                                                                          |
+| ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `NEXT_PUBLIC_SITE_URL` | Canonical site base URL (for example `https://accessly-ui.com`). In development, it falls back to `http://localhost:3000` when unset. Required in production deployments (`VERCEL_ENV=production`); throws an error if missing. In local production builds and preview deployments without this variable, canonical URLs and sitemaps degrade safely with a warning. |
 
 > **Note:** Preview deployments (`VERCEL_ENV=preview`) are served with `robots: { index: false }` and a `Disallow: /` robots directive so search engines do not index them.
 

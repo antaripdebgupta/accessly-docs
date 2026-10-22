@@ -14,7 +14,7 @@ export function normalizeUrl(url: string): string {
 // - In production, returns undefined if no env value is provided and logs a single warning.
 
 export function getSiteUrl(): string | undefined {
-  const envUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL;
+  const envUrl = process.env.NEXT_PUBLIC_SITE_URL;
 
   if (envUrl && envUrl.trim()) {
     return normalizeUrl(envUrl);
@@ -24,11 +24,19 @@ export function getSiteUrl(): string | undefined {
     return "http://localhost:3000";
   }
 
-  if (process.env.NODE_ENV === "production" && !warnedMissingUrl) {
-    warnedMissingUrl = true;
-    console.warn(
-      "[site-url] Warning: NEXT_PUBLIC_SITE_URL is not set in production. Canonical URLs, sitemap, and metadataBase will degrade safely."
-    );
+  if (process.env.NODE_ENV === "production") {
+    if (process.env.VERCEL_ENV === "production") {
+      throw new Error(
+        "NEXT_PUBLIC_SITE_URL is required in production deployment (VERCEL_ENV=production)."
+      );
+    }
+
+    if (!warnedMissingUrl) {
+      warnedMissingUrl = true;
+      console.warn(
+        "[site-url] Warning: NEXT_PUBLIC_SITE_URL is not set in production. Canonical URLs, sitemap, and metadataBase will degrade safely."
+      );
+    }
   }
 
   return undefined;

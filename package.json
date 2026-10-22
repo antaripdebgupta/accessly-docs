@@ -28,6 +28,7 @@
     ]
   },
   "dependencies": {
+    "@accessly-ui/primitives": "^1.0.1",
     "@accessly-ui/react": "^1.0.1",
     "@accessly-ui/tailwind-preset": "^1.0.1",
     "lenis": "^1.3.27",

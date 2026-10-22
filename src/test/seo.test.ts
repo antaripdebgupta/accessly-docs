@@ -50,6 +50,7 @@ describe("SEO Suite", () => {
   it("degrades safely in production without env var and never emits localhost", () => {
     delete process.env.NEXT_PUBLIC_SITE_URL;
     delete process.env.SITE_URL;
+    delete process.env.VERCEL_ENV;
     vi.stubEnv("NODE_ENV", "production");
 
     expect(getSiteUrl()).toBeUndefined();
@@ -62,6 +63,14 @@ describe("SEO Suite", () => {
     // Robots excludes sitemap line when site URL is unknown
     const robotsResult = robots();
     expect(robotsResult.sitemap).toBeUndefined();
+  });
+
+  it("throws on Vercel production without a site URL", () => {
+    delete process.env.NEXT_PUBLIC_SITE_URL;
+    vi.stubEnv("NODE_ENV", "production");
+    vi.stubEnv("VERCEL_ENV", "production");
+
+    expect(() => getSiteUrl()).toThrow();
   });
 
   it("titles and descriptions are unique across all routes and within sensible length bounds", () => {
